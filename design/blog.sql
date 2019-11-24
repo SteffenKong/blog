@@ -7,15 +7,18 @@ create table if not exists blog_admin(
     account varchar(191) not null comment '账号名',
     password varchar(191) not null comment '密码',
     email varchar(191) not null comment '邮箱',
+    phone varchar(11) not null comment '手机号码',
     image varchar(191) comment '头像',
-    last_login_ip comment '最后一次登录的ip',
+    last_login_ip varchar(191)  comment '最后一次登录的ip',
     last_login_time datetime comment '最后一次登录的时间',
-    created_at int not null comment '添加时间',
-    updated_at int not null comment '编辑时间',
+    status tinyint default 1 comment '状态',
+    created_at datetime not null comment '添加时间',
+    updated_at datetime not null comment '编辑时间',
     primary key (id),
     unique key uk_account(account),
     unique key uk_email(email)
 )charset=utf8,engine=innodb;
+
 
 -- 文章标签表
 create table if not exists blog_tags(
@@ -55,7 +58,7 @@ create table if not exists blog_link(
     created_at int not null comment '添加时间',
     updated_at int not null comment '编辑时间',
     primary key (id),
-    unique key uk_title (title)
+    unique key uk_title (title),
     unique key uk_url (url)
 )charset=utf8,engine=innodb;
 
@@ -63,7 +66,7 @@ create table if not exists blog_link(
 create table if not exists blog_article(
     id mediumint unsigned not null auto_increment,
     title varchar(191) not null comment '标题',
-    description varchar(255) not null comment '文章简介'
+    description varchar(255) not null comment '文章简介',
     big_image varchar(255) not null comment '原图路径',
     small_image varchar(255) not null comment '缩略图路径',
     status tinyint default 1 comment '状态 0 - 禁用 1 - 启用',

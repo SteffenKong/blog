@@ -46,6 +46,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof AdminException) {
+            $excep = $exception->handle($request,$exception);
+            return response()->json($excep);
+        }
         return parent::render($request, $exception);
     }
 }
