@@ -60,5 +60,27 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
         });
 
 
+        //友情链接管理
+        Route::group(['prefix'=>'link'],function() {
+            Route::get('index','LinkController@index')->name('/link/index');
+            Route::get('add','LinkController@add')->name('/link/add');
+            Route::post('doAdd','LinkController@doAdd');
+            Route::post('changeStatus/{id}','LinkController@changeStatus');
+            Route::get('edit/{id}','LinkController@edit');
+            Route::put('doEdit','LinkController@doEdit');
+            Route::delete('delete/{id}','LinkController@delete');
+        });
+
+
+        //文章管理
+        Route::group(['prefix'=>'article'],function() {
+            Route::get('index','ArticleController@index')->name('/article/index');
+            Route::get('add','ArticleController@add')->name('/article/add');
+            Route::post('doAdd','ArticleController@doAdd');
+            Route::post('changeStatus/{id}','ArticleController@changeStatus');
+            Route::get('edit/{id}','ArticleController@edit');
+            Route::put('doEdit','ArticleController@doEdit');
+            Route::delete('delete/{id}','ArticleController@delete');
+        });
     });
 });

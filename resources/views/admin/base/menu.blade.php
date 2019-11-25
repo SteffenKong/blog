@@ -27,6 +27,20 @@
             </ul>
         </li>
 
+        <li class="tags-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav4'}"><span class="am-icon-file"></span> 网站管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav4">
+                <li><a href="{{route('/link/index')}}"><span class="am-icon-puzzle-piece"></span>友情链接</a></li>
+            </ul>
+        </li>
+
+        <li class="tags-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 后台设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
+                <li><a href="{{route('/link/index')}}"><span class="am-icon-puzzle-piece"></span>友情链接</a></li>
+            </ul>
+        </li>
+
         <li><a href="{{route('logout')}}"><span class="am-icon-sign-out"></span> 注销</a></li>
     </ul>
 </div>
