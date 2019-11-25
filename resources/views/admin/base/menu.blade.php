@@ -9,23 +9,25 @@
                 <li><a href="{{route('/admin/index')}}"><span class="am-icon-puzzle-piece"></span> 管理员列表</a></li>
             </ul>
         </li>
-        <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-        <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
+        <li class="tags-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span> 文章模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
+                <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>标签列表</a></li>
+                <li><a href="{{route('/category/index')}}"><span class="am-icon-puzzle-piece"></span>分类列表</a></li>
+                <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>文章列表</a></li>
+            </ul>
+        </li>
+
+        <li class="tags-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span> 日志管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
+                <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>标签列表</a></li>
+                <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>分类列表</a></li>
+                <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>文章列表</a></li>
+            </ul>
+        </li>
+
         <li><a href="{{route('logout')}}"><span class="am-icon-sign-out"></span> 注销</a></li>
     </ul>
-
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-        <div class="am-panel-bd">
-            <p><span class="am-icon-bookmark"></span> 公告</p>
-            <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
-        </div>
-    </div>
-
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-        <div class="am-panel-bd">
-            <p><span class="am-icon-tag"></span> wiki</p>
-            <p>Welcome to the Amaze UI wiki!</p>
-        </div>
-    </div>
 </div>
 <!-- sidebar end -->

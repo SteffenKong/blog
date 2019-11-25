@@ -25,7 +25,7 @@ if(!function_exists('getTree')) {
     function getTree($data,$pid = 0,$level = 0) {
         $arr = [];
         foreach ($data ?? [] as $k=>$v) {
-            if($v['parentId'] == $pid) {
+            if($v['pid'] == $pid) {
                 $v['level'] = $level;
                 $arr[] = $v;
                 $level ++;

@@ -15,12 +15,8 @@ use Illuminate\Http\Request;
  */
 class AdminController extends BaseController {
 
-    /* @var Admin $adminModel */
-    protected $adminModel;
-
     public function __construct() {
         parent::__construct();
-        $this->adminModel = Loader::singleton(Admin::class);
     }
 
 
@@ -32,6 +28,8 @@ class AdminController extends BaseController {
         $email = $request->get('email','');
         $phone = $request->get('phone','');
         $account = $request->get('account','');
+        $status = $request->get('status',-1);
+
         list($data,$paginate) = $this->adminModel->getList($this->pageSize,$account,$email,$phone);
         return view('/admin/admin/index',compact('data','paginate'));
     }
@@ -67,7 +65,10 @@ class AdminController extends BaseController {
      */
     public function edit(int $id) {
         $admin = $this->adminModel->getOne($id);
-        if($id != 1 || !$this->isOwnId($id)) {
+        if($this->getAdminId() != 1 && !$this->isOwnId($id)) {
+            return redirect('/admin/admin/index');
+        }
+        if(empty($admin)) {
             return redirect('/admin/admin/index');
         }
         return view('/admin/admin/edit',compact('admin'));
