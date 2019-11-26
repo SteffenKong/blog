@@ -14,7 +14,7 @@
             <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
                 <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>标签列表</a></li>
                 <li><a href="{{route('/category/index')}}"><span class="am-icon-puzzle-piece"></span>分类列表</a></li>
-                <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>文章列表</a></li>
+                <li><a href="{{route('/article/index')}}"><span class="am-icon-puzzle-piece"></span>文章列表</a></li>
             </ul>
         </li>
 
@@ -43,16 +43,16 @@
 
 
         <li class="tags-parent">
-            <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span> 信息管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav6'}"><span class="am-icon-file"></span> 信息管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav6">
                 <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>邮箱列表</a></li>
                 <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>短信列表</a></li>
             </ul>
         </li>
 
         <li class="tags-parent">
-            <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span> 评论管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav7'}"><span class="am-icon-file"></span> 评论管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav7">
                 <li><a href="{{route('/tags/index')}}"><span class="am-icon-puzzle-piece"></span>评论列表</a></li>
             </ul>
         </li>

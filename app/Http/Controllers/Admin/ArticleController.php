@@ -30,6 +30,8 @@ class ArticleController extends BaseController {
     public function __construct() {
         parent::__construct();
         $this->articleModel = Loader::singleton(Article::class);
+        $this->tagsModel = Loader::singleton(Tags::class);
+        $this->categoryModel = Loader::singleton(Category::class);
     }
 
 
@@ -69,7 +71,7 @@ class ArticleController extends BaseController {
      */
     public function doAdd(ArticleAddRequest $request) {
         $data = $request->post();
-        if(!$this->articleModel->add($data['title'],$data['description'],$data['bigImage'],$data['smallImage'],$data['status'],$data['isHot'],$data['isRec'],$data['author'],$data['content'])) {
+        if(!$this->articleModel->add($data['title'],$data['description'],$data['bigImage'],$data['smallImage'],$data['status'],$data['isHot'],$data['isRec'],$data['author'],$data['content'],$data['cateId'],$data['tagIds'])) {
             return jsonPrint('001','发布失败!');
         }
         return jsonPrint('000','发布成功');
@@ -83,12 +85,16 @@ class ArticleController extends BaseController {
      * 编辑文章
      */
     public function edit(int $id) {
+
+        //取出旧数据
+        $article = $this->articleModel->getOne($id);
+        if(!$article) {
+            return redirect('/admin/article/index');
+        }
         //取出所有文章分类
         $allCate =  $this->categoryModel->getTree();
         //取出所有文章标签
         $allTags = $this->tagsModel->getAllTags();
-        //取出旧数据
-        $article = $this->articleModel->getOne($id);
         return view('/admin/article/edit',compact('allCate','allTags','article'));
     }
 
@@ -101,7 +107,7 @@ class ArticleController extends BaseController {
      */
     public function doEdit(ArticleEditRequest $request) {
         $data = $request->post();
-        if(!$this->articleModel->edit($data['id'],$data['title'],$data['description'],$data['bigImage'],$data['smallImage'],$data['status'],$data['isHot'],$data['isRec'],$data['author'],$data['content'])) {
+        if(!$this->articleModel->edit($data['id'],$data['title'],$data['description'],$data['bigImage'],$data['smallImage'],$data['status'],$data['isHot'],$data['isRec'],$data['author'],$data['content'],$data['cateId'],$data['tagIds'])) {
             return jsonPrint('001','编辑失败!');
         }
         return jsonPrint('000','编辑成功');
@@ -111,10 +117,23 @@ class ArticleController extends BaseController {
     /**
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
-     * 删除文章
+     * 删除单篇文章
      */
     public function delete(int $id) {
-        if(!$this->articleModel->deleteData($id)) {
+        if(!$this->articleModel->deleteOne($id)) {
+            return jsonPrint('001','删除失败!');
+        }
+        return jsonPrint('000','删除成功');
+    }
+
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     * 删除多篇文章
+     */
+    public function deleteAll(int $id) {
+        if(!$this->articleModel->deleteAll($id)) {
             return jsonPrint('001','删除失败!');
         }
         return jsonPrint('000','删除成功');

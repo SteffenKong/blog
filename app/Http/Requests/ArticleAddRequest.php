@@ -21,6 +21,7 @@ class ArticleAddRequest extends BaseRequest {
             'status' => 'in:0,1',
             'isHot' => 'in:0,1',
             'isRec' => 'in:0,1',
+            'cateId' => 'notIn:-1|in:0,1|numeric',
             'content' => 'required|max:4000'
         ];
     }
@@ -31,6 +32,9 @@ class ArticleAddRequest extends BaseRequest {
      */
     public function messages() {
         return [
+            'cateId.notIn' => '请选择分类id',
+            'cateId.in' => '分类id取值异常',
+            'cateId.numeric' => '分类id类型异常',
             'title.required' => '请填写标题',
             'title.max' => '标题最多只能填写30个字符',
             'title.unique' => '标题已存在',

@@ -3,6 +3,7 @@
 <head>
     {{--  meta部分  --}}
     @include("/admin/base/meta")
+    @yield('meta')
 </head>
 <body>
 
@@ -19,7 +20,7 @@
 
 </div>
 
-@include('/admin/base/footer'))
+@include('/admin/base/footer')
 
 </body>
 </html>

@@ -92,10 +92,12 @@ class Article extends Model {
      * @param $isRec
      * @param $author
      * @param $content
+     * @param $cateIds
+     * @param $tagIds
      * @return bool
      * 添加文章
      */
-    public function add($title,$description,$bigImage,$smallImage,$status,$isHot,$isRec,$author,$content) {
+    public function add($title,$description,$bigImage,$smallImage,$status,$isHot,$isRec,$author,$content,$cateId,$tagIds) {
         $result = false;
         try {
             DB::beginTransaction();
@@ -116,7 +118,22 @@ class Article extends Model {
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]);
 
-            if($result1 && $result2) {
+            $articleTagIds = [];
+            foreach ($tagIds ?? [] as $tagId) {
+                $articleTagIds[] = [
+                    'id' => $result1->id,
+                    'tag_id' => $tagId
+                ];
+            }
+
+            $result3 = ArticleCategory::insert([
+                'article_id'=>$result1->id,
+                'category_id'=>$cateId
+            ]);
+
+            $result4 = ArticleTags::insert($articleTagIds);
+
+            if($result1 && $result2 && $result3 && $result4) {
                 $result = true;
             }
         }catch (\Exception $e) {
@@ -133,6 +150,7 @@ class Article extends Model {
     }
 
 
+
     /**
      * @param $id
      * @param $title
@@ -144,10 +162,12 @@ class Article extends Model {
      * @param $isRec
      * @param $author
      * @param $content
+     * @param $cateId
+     * @param $tagIds
      * @return bool
      * 编辑文章
      */
-    public function edit($id,$title,$description,$bigImage,$smallImage,$status,$isHot,$isRec,$author,$content) {
+    public function edit($id,$title,$description,$bigImage,$smallImage,$status,$isHot,$isRec,$author,$content,$cateId,$tagIds) {
         $result = false;
         try {
             DB::beginTransaction();
@@ -167,6 +187,84 @@ class Article extends Model {
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]);
 
+
+            if(!empty($cateIds)) {
+                $result3 = $this->asyncCateId($id,$cateId);
+            }
+
+            if(!empty($tagIds)) {
+                $result4 = $this->asyncTagIds($id,$tagIds);
+            }
+
+            if($result1 && $result2 && $result3 && $result4) {
+                $result = true;
+            }
+        }catch (\Exception $e) {
+            $result = false;
+        }
+
+        if(!$result) {
+            DB::rollback();
+            return false;
+        }
+
+        DB::commit();
+        return true;
+    }
+
+
+
+    /**
+     * @param $articleId
+     * @param $cateId
+     * @return bool
+     * 修改分类文章中间表
+     */
+    public function asyncCateId($articleId,$cateId) {
+        $result = false;
+        try {
+            DB::beginTransaction();
+            $result1 = ArticleCategory::where('article_id',$articleId)->delete();
+            $result2 = ArticleCategory::insert([
+                'article_id' => $articleId,
+                'category_id' => $cateId
+            ]);
+            if($result1 && $result2) {
+                $result = true;
+            }
+        }catch (\Exception $e) {
+            $result = false;
+        }
+
+        if(!$result) {
+            DB::rollback();
+            return false;
+        }
+
+        DB::commit();
+        return true;
+    }
+
+
+    /**
+     * @param $articleId
+     * @param $tagIds
+     * @return bool
+     * 修改文章标签中间表
+     */
+    public function asyncTagIds($articleId,$tagIds) {
+        $result = false;
+        try {
+            DB::beginTransaction();
+            $result1 = ArticleTags::where('article_id',$articleId)->delete();
+            $articleTagIds = [];
+            foreach ($tagIds ?? [] as $tagId) {
+                $articleTagIds[] = [
+                    'id' => $result1->id,
+                    'tag_id' => $tagId
+                ];
+            }
+            $result2 = ArticleTags::insert($articleTagIds);
             if($result1 && $result2) {
                 $result = true;
             }
@@ -205,16 +303,57 @@ class Article extends Model {
     /**
      * @param $articleId
      * @return bool
-     * 删除文章数据
+     * 删除单篇文章
      */
-    public function deleteData($articleId) {
-        $result = true;
-        if(is_array($articleId)) {
-            $result = Article::where('id',$articleId)->delete();
-        }else {
-            $result = Article::whereIn('id',$articleId)->delete();
+    public function deleteOne($articleId) {
+        $result = false;
+        try {
+            DB::beginTransaction();
+            $result1 = Article::where('id',$articleId)->delete();
+            $result2 = ArticleCategory::where('article_id',$articleId)->delete();
+            $result3 = ArticleTags::where('article_id',$articleId)->delete();
+            if($result1 && $result2 && $result3) {
+                $result = true;
+            }
+        }catch (\Exception $e) {
+            $result = false;
         }
-        return $result;
+
+        if(!$result) {
+            DB::rollBack();
+            return false;
+        }
+        DB::commit();
+        return true;
+    }
+
+
+
+    /**
+     * @param $articleIds
+     * @return bool
+     * 删除多篇文章
+     */
+    public function deleteAll($articleIds) {
+        $result = false;
+        try {
+            DB::beginTransaction();
+            $result1 = Article::whereIn('id',$articleIds)->delete();
+            $result2 = ArticleCategory::whereIn('article_id',$articleIds)->delete();
+            $result3 = ArticleTags::whereIn('article_id',$articleIds)->delete();
+            if($result1 && $result2 && $result3) {
+                $result = true;
+            }
+        }catch (\Exception $e) {
+            $result = false;
+        }
+
+        if(!$result) {
+            DB::rollBack();
+            return false;
+        }
+        DB::commit();
+        return true;
     }
 
 

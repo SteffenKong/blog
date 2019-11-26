@@ -176,7 +176,7 @@ class Tags extends Model {
      */
     public function getAllTags() {
         $return = [];
-        $data = Tags::all();
+        $data = Tags::where('status',1)->get();
         if(!empty($data)) {
             foreach ($data ?? [] as $tag) {
                 $return[] = [
@@ -185,6 +185,6 @@ class Tags extends Model {
                 ];
             }
         }
-        return [$return,$data];
+        return $return;
     }
 }

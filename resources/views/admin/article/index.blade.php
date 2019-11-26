@@ -47,7 +47,7 @@
                             <th class="table-title">文章标题</th>
                             <th class="table-type">缩略图</th>
                             <th class="table-type">状态</th>
-                            <th class="table-type">是否热销</th>
+                            <th class="table-type">是否热推</th>
                             <th class="table-type">是否推荐</th>
                             <th class="table-type">点击量</th>
                             <th class="table-type">作者</th>
