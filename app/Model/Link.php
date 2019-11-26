@@ -39,7 +39,17 @@ class Link extends Model {
      */
     public function getList($pageSize,$title,$url,$status) {
         $return = [];
-        $data = Link::paginate($pageSize);
+        $data = Link::when(!empty($title),function($query) use($title) {
+            return $query->where('title','like','%'.$title.'%');
+        })
+        ->when(!empty($url),function($query) use($url) {
+            return $query->where('url','like','%'.$url.'%');
+        })
+        ->when($status != -1,function($query) use($status) {
+            return $query->where('status',$status);
+        })
+        ->orderBy('created_at','desc')
+        ->paginate($pageSize);
 
         if(!empty($data)) {
             foreach ($data ?? [] as $link) {

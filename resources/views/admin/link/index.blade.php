@@ -25,14 +25,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 am-cf" style="margin-top:30px;">
-                <div class="am-fr">
-                    <div class="am-input-group am-input-group-sm">
-                        <input type="text" class="am-form-field">
-                        <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
-                    </div>
+            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:900px;">
+                <div class="am-fr" style="width:100%;">
+                    <form class="am-form  am-form-inline" method="GET" action="{{route('/link/index')}}">
+                        <div class="am-form-group">
+                            <input type="text" name="title" class="am-form-field" placeholder="搜索友情链接名称">
+                        </div>
+
+                        <div class="am-form-group">
+                            <input type="text" name="url" class="am-form-field" placeholder="搜索友情链接url">
+                        </div>
+
+                        <div class="am-form-group am-margin-left am-fl" style="width:80px; margin-right:10px;">
+                            <select name="status">
+                                <option value="-1">所有</option>
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="am-btn am-btn-default">搜索</button>
+                    </form>
                 </div>
             </div>
         </div>

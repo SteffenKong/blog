@@ -5,6 +5,11 @@ namespace App\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Category
+ * @package App\Model
+ * 分类模型器
+ */
 class Category extends Model {
 
     protected $table = 'category';

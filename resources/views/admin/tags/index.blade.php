@@ -17,29 +17,24 @@
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
                         </div>
-
-                        <div class="am-form-group am-margin-left am-fl">
-{{--                            <select>--}}
-{{--                                <option value="option1">所有类别</option>--}}
-{{--                                <option value="option2">IT业界</option>--}}
-{{--                                <option value="option3">数码产品</option>--}}
-{{--                                <option value="option3">笔记本电脑</option>--}}
-{{--                                <option value="option3">平板电脑</option>--}}
-{{--                                <option value="option3">只能手机</option>--}}
-{{--                                <option value="option3">超极本</option>--}}
-{{--                            </select>--}}
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 am-cf" style="margin-top:30px;">
-                <div class="am-fr">
-                    <div class="am-input-group am-input-group-sm">
-                        <input type="text" class="am-form-field">
-                        <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
-                    </div>
+            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:500px;">
+                <div class="am-fr" style="width:100%; float:right;">
+                    <form class="am-form  am-form-inline" method="GET" action="{{route('/tags/index')}}">
+                        <div class="am-form-group">
+                            <input type="text" name="title" class="am-form-field" placeholder="搜索标签名称">
+                        </div>
+                        <div class="am-form-group am-margin-left am-fl" style="width:80px; margin-right:10px;">
+                            <select name="status">
+                                <option value="-1">所有</option>
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="am-btn am-btn-default">搜索</button>
+                    </form>
                 </div>
             </div>
         </div>

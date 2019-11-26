@@ -84,6 +84,33 @@ create table if not exists blog_article(
 )charset=utf8,engine=innodb;
 
 
+-- 文章 - 分类 中间表
+create table if not exists blog_article_category(
+    id mediumint unsigned not null auto_increment,
+    article_id mediumint unsigned not null comment '文章id',
+    category_id  mediumint unsigned not null comment '分类id',
+    created_at datetime not null comment '添加时间',
+    updated_at datetime not null comment '编辑时间',
+    primary key (id),
+    key idx_article_id(article_id),
+    key idx_category_id(category_id)
+)charset=utf8,engine=innodb;
+
+
+-- 文章 - 标签 中间表
+create table if not exists blog_article_tags(
+    id mediumint unsigned not null auto_increment,
+    article_id mediumint unsigned not null comment '文章id',
+    tag_id mediumint unsigned not null comment '标签id',
+    created_at datetime not null comment '添加时间',
+    updated_at datetime not null comment '编辑时间',
+    primary key (id),
+    key idx_article_id(article_id),
+    key idx_tag_id(tag_id)
+)charset=utf8,engine=innodb;
+
+
+
 -- 文章内容表
 create table if not exists blog_article_details(
     id mediumint unsigned not null auto_increment,

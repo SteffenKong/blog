@@ -149,11 +149,25 @@ class Admin extends Model
      * @param $account
      * @param $email
      * @param $phone
+     * @param $status
      * @return array
      * 获取管理员列表
      */
-    public function getList($pageSize,$account,$email,$phone) {
-        $data = Admin::paginate($pageSize);
+    public function getList($pageSize, $account, $email, $phone,$status) {
+        $data = Admin::when(!empty($account),function($query) use($account) {
+            return $query->where('account','like','%'.$account.'%');
+        })
+        ->when(!empty($email),function($query) use($email) {
+            return $query->where('email','like','%'.$email.'%');
+        })
+        ->when(!empty($phone),function($query) use($phone) {
+            return $query->where('phone','like','%'.$phone.'%');
+        })
+        ->when($status != -1,function($query) use($status) {
+                return $query->where('status',$status);
+        })
+        ->orderBy('created_at','desc')
+        ->paginate($pageSize);
         $return = [];
         if(!empty($data)) {
             foreach ($data ?? [] as $key=>$value) {

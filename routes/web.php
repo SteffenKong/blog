@@ -17,8 +17,13 @@ Route::get('/', function () {
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
     Route::get('getPublicKey','LoginController@getPublicKey');
-    Route::get('login','LoginController@login');
-    Route::post('sign','LoginController@sign');
+
+    //登录页
+    Route::group(['middleware' => ['IsLogin']],function() {
+        Route::get('login','LoginController@login');
+        Route::post('sign','LoginController@sign');
+    });
+
     Route::get('logout','IndexController@logout')->name('logout');
     Route::group(['middleware'=>['CheckLogin']],function() {
         Route::get('index','IndexController@index')->name('index');

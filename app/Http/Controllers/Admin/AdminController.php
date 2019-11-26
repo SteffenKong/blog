@@ -29,8 +29,7 @@ class AdminController extends BaseController {
         $phone = $request->get('phone','');
         $account = $request->get('account','');
         $status = $request->get('status',-1);
-
-        list($data,$paginate) = $this->adminModel->getList($this->pageSize,$account,$email,$phone);
+        list($data,$paginate) = $this->adminModel->getList($this->pageSize,$account, $email, $phone,$status);
         return view('/admin/admin/index',compact('data','paginate'));
     }
 

@@ -5,7 +5,7 @@
     <div class="admin-content">
 
         <div class="am-cf am-padding">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">友情链接模块</strong> / <small>列表</small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">文章模块</strong> / <small>列表</small></div>
         </div>
 
         <div class="am-g">
@@ -13,9 +13,7 @@
                 <div class="am-fl am-cf">
                     <div class="am-btn-toolbar am-fl">
                         <div class="am-btn-group am-btn-group-xs">
-                            <button type="button" class="am-btn am-btn-default" onclick="window.location.href = '/admin/link/add'"><span class="am-icon-plus"></span> 新增</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 一键排序</button>
+                            <button type="button" class="am-btn am-btn-default" onclick="window.location.href = '/admin/article/add'"><span class="am-icon-plus"></span> 新增</button>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
                         </div>
 
@@ -46,39 +44,56 @@
                             <th class="table-check">
                                 <input type="checkbox" />
                             </th><th class="table-id">ID</th>
-                            <th class="table-title">友情链接名称</th>
-                            <th class="table-type">url地址</th>
+                            <th class="table-title">文章标题</th>
+                            <th class="table-type">缩略图</th>
                             <th class="table-type">状态</th>
-                            <th class="table-type">排序值</th>
+                            <th class="table-type">是否热销</th>
+                            <th class="table-type">是否推荐</th>
+                            <th class="table-type">点击量</th>
+                            <th class="table-type">作者</th>
                             <th class="table-date">添加日期</th>
                             <th class="table-date">修改日期</th>
                             <th class="table-set">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($data as $link)
+                        @foreach($data as $article)
                         <tr>
                             <td><input type="checkbox" /></td>
-                            <td>{{$link['id']}}</td>
-                            <td>{{$link['title']}}</td>
-                            <td><a href="{{$link['url']}}" class="link">{{$link['url']}}</a></td>
+                            <td>{{$article['id']}}</td>
+                            <td>{{$article['title']}}</td>
+                            <td>{{$article['smallImage']}}</td>
                             <td>
-                                @if($link['status'] == 1)
-                                    <a class="am-btn  am-btn-secondary status"  data-id="{{$link['id']}}" style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">启用</a>
+                                @if($article['status'] == 1)
+                                    <a class="am-btn  am-btn-secondary status"  data-id="{{$article['id']}}" style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">启用</a>
                                 @else
-                                    <a class="am-btn am-btn-danger status" data-id="{{$link['id']}}"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">禁用</a>
+                                    <a class="am-btn am-btn-danger status" data-id="{{$article['id']}}"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">禁用</a>
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($article['isHot'] == 1)
+                                    <a class="am-btn  am-btn-secondary status"   style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">热销</a>
+                                @else
+                                    <a class="am-btn am-btn-danger status"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">不热销</a>
                                 @endif
                             </td>
                             <td>
-                                <input type="text"  id="{{$link['id']}}" style="height:30px;width:50px; text-align: center;" value="{{$link['sort']}}" />
+                                @if($article['isRec'] == 1)
+                                    <a class="am-btn  am-btn-secondary status"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">推荐</a>
+                                @else
+                                    <a class="am-btn am-btn-danger status"   style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">不推荐</a>
+                                @endif
                             </td>
-                            <td>{{$link['createdAt']}}</td>
-                            <td>{{$link['updatedAt']}}</td>
+                            <td>{{$article['viewNumber']}}</td>
+                            <td>{{$article['author']}}</td>
+                            <td>{{$article['createdAt']}}</td>
+                            <td>{{$article['updatedAt']}}</td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a class="am-btn am-btn-default am-btn-xs am-text-secondary" style="background-color:white;" href="/admin/link/edit/{{$link["id"]}}"><span class="am-icon-pencil-square-o"></span> 编辑</a>
-                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger del"   data-id="{{$link['id']}}"><span class="am-icon-trash-o"></span>删除</button>
+                                        <a class="am-btn am-btn-default am-btn-xs am-text-secondary" style="background-color:white;" href="/admin/article/edit/{{$article["id"]}}"><span class="am-icon-pencil-square-o"></span> 编辑</a>
+                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger del"   data-id="{{$article['id']}}"><span class="am-icon-trash-o"></span>删除</button>
                                     </div>
                                 </div>
                             </td>
@@ -118,7 +133,7 @@
             var thisObj = $(this);
 
             $.ajax({
-                url:'/admin/link/changeStatus/'+id,
+                url:'/admin/article/changeStatus/'+id,
                 data:null,
                 dataType:'Json',
                 type:'POST',
@@ -151,7 +166,7 @@
             var id = $(this).attr('data-id');
             var thisObj = $(this);
             $.ajax({
-                url:'/admin/link/delete/'+id,
+                url:'/admin/article/delete/'+id,
                 data:null,
                 dataType:'Json',
                 type:'delete',

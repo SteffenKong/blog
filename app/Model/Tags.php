@@ -34,7 +34,13 @@ class Tags extends Model {
      */
     public function getList($pageSize,$title,$status) {
         $return = [];
-        $data = Tags::paginate($pageSize);
+        $data = Tags::when(!empty($title),function($query) use($title) {
+                return $query->where('title',$title);
+        })->when($status != -1,function($query) use($status) {
+                return $query->where('status',$status);
+         })
+         ->orderBy('created_at','desc')
+         ->paginate($pageSize);
         if(!empty($data)) {
             foreach ($data ?? [] as $tag) {
                 $return[] = [
@@ -161,5 +167,24 @@ class Tags extends Model {
      */
     public function getDescriptionById($id) {
         return Tags::where('id',$id)->value('description');
+    }
+
+
+    /**
+     * @return array
+     * 获取所有标签
+     */
+    public function getAllTags() {
+        $return = [];
+        $data = Tags::all();
+        if(!empty($data)) {
+            foreach ($data ?? [] as $tag) {
+                $return[] = [
+                    'id' => $tag->id,
+                    'title' => $tag->title,
+                ];
+            }
+        }
+        return [$return,$data];
     }
 }
