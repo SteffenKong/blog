@@ -62,7 +62,11 @@
                             <td><input type="checkbox" /></td>
                             <td>{{$article['id']}}</td>
                             <td>{{$article['title']}}</td>
-                            <td>{{$article['smallImage']}}</td>
+                            <td>
+                                <a href="#"><img src="{{$article['smallImage']}}"  class="thumbImg" style="height:40px; width:100px;" />
+                                    <img class="bigPic" src="{{$article['smallImage']}}" style="display: none; height:400px; width:700px;" />
+                                </a>
+                            </td>
                             <td>
                                 @if($article['status'] == 1)
                                     <a class="am-btn  am-btn-secondary status"  data-id="{{$article['id']}}" style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">启用</a>
@@ -73,16 +77,16 @@
 
                             <td>
                                 @if($article['isHot'] == 1)
-                                    <a class="am-btn  am-btn-secondary status"   style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">热销</a>
+                                    <a class="am-btn  am-btn-secondary status"   style="height:30px; width:70px; line-height: 10px; text-align: center; font-size:13px;">热销</a>
                                 @else
-                                    <a class="am-btn am-btn-danger status"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">不热销</a>
+                                    <a class="am-btn am-btn-danger status"  style="height:30px; width:70px; line-height: 10px; text-align: center; font-size:13px;">不热销</a>
                                 @endif
                             </td>
                             <td>
                                 @if($article['isRec'] == 1)
-                                    <a class="am-btn  am-btn-secondary status"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">推荐</a>
+                                    <a class="am-btn  am-btn-secondary status"  style="height:30px; width:70px; line-height: 10px; text-align: center; font-size:13px;">推荐</a>
                                 @else
-                                    <a class="am-btn am-btn-danger status"   style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">不推荐</a>
+                                    <a class="am-btn am-btn-danger status"   style="height:30px; width:70px; line-height: 10px; text-align: center; font-size:13px;">不推荐</a>
                                 @endif
                             </td>
                             <td>{{$article['viewNumber']}}</td>
@@ -178,6 +182,23 @@
                         layer.msg(resp.message,{icon:2});
                     }
                 }
+            });
+        });
+
+
+        /**
+         * 缩略图
+         */
+        $(".thumbImg").click(function() {
+            //页面层-图片
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 1,
+                area: ['700px','400px'],
+                skin: 'layui-layer-nobg', //没有背景色
+                shadeClose: true,
+                content: $(this).next($('.bigPic'))     //查找下一个兄弟节点
             });
         });
     </script>

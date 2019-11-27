@@ -55,7 +55,7 @@ class Article extends Model {
         ->when($isHot != -1,function($query) use($isHot) {
             return $query->where('is_hot',$isHot);
         })
-        ->when($status != -1,function($query) use($createdAt) {
+        ->when(!empty($createdAt),function($query) use($createdAt) {
             return $query->where('created_at',$createdAt);
         })
         ->orderBy('created_at','desc')
@@ -70,7 +70,7 @@ class Article extends Model {
                     'status' => $article->status,
                     'isHot' => $article->is_hot,
                     'smallImage' => $article->small_image,
-                    'is_rec' => $article->is_rec,
+                    'isRec' => $article->is_rec,
                     'viewNumber' => $article->view_number,
                     'author' => $article->author,
                     'createdAt' => $article->created_at,
@@ -101,7 +101,7 @@ class Article extends Model {
         $result = false;
         try {
             DB::beginTransaction();
-            $result1 = Article::insert([
+            $result1 = Article::create([
                 'title' => $title,
                 'description' => $description,
                 'big_image' => $bigImage,
@@ -112,7 +112,7 @@ class Article extends Model {
                 'author' => $author,
             ]);
 
-            $result2 = ArticleDetails::insert([
+            $result2 = ArticleDetails::create([
                 'article_id' => $result1->id,
                 'content' => $content,
                 'updated_at' => Carbon::now()->toDateTimeString()
@@ -121,12 +121,14 @@ class Article extends Model {
             $articleTagIds = [];
             foreach ($tagIds ?? [] as $tagId) {
                 $articleTagIds[] = [
-                    'id' => $result1->id,
-                    'tag_id' => $tagId
+                    'article_id' => $result1->id,
+                    'tag_id' => $tagId,
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
                 ];
             }
 
-            $result3 = ArticleCategory::insert([
+            $result3 = ArticleCategory::create([
                 'article_id'=>$result1->id,
                 'category_id'=>$cateId
             ]);
@@ -182,13 +184,12 @@ class Article extends Model {
                 'author' => $author,
             ]);
 
-            $result2 = ArticleDetails::where('article_id',$result1->id)->update([
+            $result2 = ArticleDetails::where('article_id',$id)->update([
                 'content' => $content,
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]);
 
-
-            if(!empty($cateIds)) {
+            if(!empty($cateId)) {
                 $result3 = $this->asyncCateId($id,$cateId);
             }
 
@@ -225,7 +226,7 @@ class Article extends Model {
         try {
             DB::beginTransaction();
             $result1 = ArticleCategory::where('article_id',$articleId)->delete();
-            $result2 = ArticleCategory::insert([
+            $result2 = ArticleCategory::create([
                 'article_id' => $articleId,
                 'category_id' => $cateId
             ]);
@@ -260,8 +261,10 @@ class Article extends Model {
             $articleTagIds = [];
             foreach ($tagIds ?? [] as $tagId) {
                 $articleTagIds[] = [
-                    'id' => $result1->id,
-                    'tag_id' => $tagId
+                    'article_id' => $articleId,
+                    'tag_id' => $tagId,
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
                 ];
             }
             $result2 = ArticleTags::insert($articleTagIds);
@@ -384,5 +387,43 @@ class Article extends Model {
             ];
         }
         return $return;
+    }
+
+
+    /**
+     * @param $articleId
+     * @return mixed
+     * 通过文章id获取文章内容
+     */
+    public function getContentByArticleId($articleId) {
+       return  ArticleDetails::where('article_id',$articleId)->value('content');
+    }
+
+
+
+    /**
+     * @param $articleId
+     * @return array
+     * 通过文章id获取文章标签
+     */
+    public function getTagsByArticleId($articleId) {
+        $tagIds = [];
+        $tags = ArticleTags::where('article_id',$articleId)->get(['tag_id']);
+        if(!empty($tags)) {
+            foreach ($tags ?? [] as $k=>$v) {
+                $tagIds[] = $v->tag_id;
+            }
+        }
+        return $tagIds;
+    }
+
+
+    /**
+     * @param $articleId
+     * @return mixed
+     * 通过文章id获取文章分类
+     */
+    public function getCategoryByArticleId($articleId) {
+        return ArticleCategory::where('article_id',$articleId)->value('category_id');
     }
 }

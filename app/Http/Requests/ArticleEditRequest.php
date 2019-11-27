@@ -17,13 +17,13 @@ class ArticleEditRequest extends BaseRequest {
     {
         return [
             'id'=>'required|numeric|notIn:0',
-            'title' => 'required|max:30|unique:article',
+            'title' => 'required|max:30',
             'description' => 'required|max:150',
             'status' => 'in:0,1',
             'isHot' => 'in:0,1',
             'isRec' => 'in:0,1',
             'content' => 'required|max:4000',
-            'cateId' => 'notIn:-1|in:0,1|numeric',
+            'categoryId' => 'notIn:-1|numeric',
         ];
     }
 
@@ -38,7 +38,6 @@ class ArticleEditRequest extends BaseRequest {
             'id.notIn' => 'id不能为0',
             'title.required' => '请填写标题',
             'title.max' => '标题最多只能填写30个字符',
-            'title.unique' => '标题已存在',
             'description.required' => '请填写文章简介内容',
             'description.max' => '文章简介最多只能填写150个字符',
             'status.in' => '文章状态值取值异常',
@@ -46,9 +45,8 @@ class ArticleEditRequest extends BaseRequest {
             'isRec.in' => '文章推荐值取值异常',
             'content.required' => '请输入文章内容',
             'content.max' => '文章内容最多只能输入4000个字符',
-            'cateId.notIn' => '请选择分类id',
-            'cateId.in' => '分类id取值异常',
-            'cateId.numeric' => '分类id类型异常',
+            'categoryId.notIn' => '请选择分类id',
+            'categoryId.numeric' => '分类id类型异常',
         ];
     }
 }

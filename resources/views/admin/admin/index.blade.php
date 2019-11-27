@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:900px;">
+            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:980px;">
                 <div class="am-fr" style="width:100%;">
                     <form class="am-form  am-form-inline" method="GET" action="{{route('/admin/index')}}">
                         <div class="am-form-group">
@@ -37,7 +37,7 @@
                             <input type="text" name="phone" class="am-form-field" placeholder="搜索手机号码">
                         </div>
 
-                        <div class="am-form-group am-margin-left am-fl" style="width:80px; margin-right:10px;">
+                        <div class="am-form-group am-margin-left am-fl" style="width:70px; margin-right:10px;">
                                 <select name="status">
                                     <option value="-1">所有</option>
                                     <option value="1">启用</option>

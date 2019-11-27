@@ -15,7 +15,6 @@ use App\Model\Link;
  */
 class LinkController extends BaseController {
 
-
     /* @var Link $linkModel */
     protected $linkModel;
 
@@ -124,5 +123,20 @@ class LinkController extends BaseController {
             return jsonPrint('001','编辑失败!');
         }
         return jsonPrint('000','编辑成功!');
+    }
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 改变排序值
+     */
+    public function changeSort(Request $request) {
+        $sorts = $request->post('sorts');
+        if(!$this->linkModel->changeSort($sorts)) {
+            return jsonPrint('001','排序失败!');
+        }
+        return jsonPrint('000','排序成功!');
     }
 }

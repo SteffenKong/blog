@@ -15,7 +15,7 @@
                         <div class="am-btn-group am-btn-group-xs">
                             <button type="button" class="am-btn am-btn-default" onclick="window.location.href = '/admin/link/add'"><span class="am-icon-plus"></span> 新增</button>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 一键排序</button>
+                            <button type="button" class="am-btn am-btn-default" id="sortBtn"><span class="am-icon-save"></span> 一键排序</button>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
                         </div>
 
@@ -82,7 +82,7 @@
                                 @endif
                             </td>
                             <td>
-                                <input type="text"  id="{{$link['id']}}" style="height:30px;width:50px; text-align: center;" value="{{$link['sort']}}" />
+                                <input type="text" class="sortText" data-id="{{$link['id']}}" style="height:30px;width:50px; text-align: center;" value="{{$link['sort']}}" />
                             </td>
                             <td>{{$link['createdAt']}}</td>
                             <td>{{$link['updatedAt']}}</td>
@@ -171,6 +171,41 @@
                     if(resp.status === '000') {
                         layer.msg(resp.message,{icon:1});
                         thisObj.parent().parent().parent().parent().remove();
+                    }else {
+                        layer.msg(resp.message,{icon:2});
+                    }
+                }
+            });
+        });
+
+
+        /**
+         * 一键排序
+         */
+        $("#sortBtn").click(function() {
+            var sortsText = $(".sortText");
+            var data = [];
+
+            sortsText.each(function() {
+                var id = $(this).attr('data-id');
+                var sortVal = $(this).val();
+                var tempObj = {
+                    id:id,
+                    sortVal
+                };
+                data.push(tempObj);
+            });
+
+            $.ajax({
+                url:'/admin/link/changeSort',
+                data:{sorts:data},
+                type:'POST',
+                dataType:'Json',
+                success:function(resp) {
+                    console.log(resp);
+                    if(resp.status === '000') {
+                        layer.msg(resp.message,{icon:1});
+                        window.location.reload();
                     }else {
                         layer.msg(resp.message,{icon:2});
                     }

@@ -41,7 +41,7 @@
             <div class="am-form-group">
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">文章分类: </label>
                 <label class="am-checkbox-inline">
-                    <select name="categoryIds" style="width:200px; position: relative; left:-20px; bottom:6px;">
+                    <select name="categoryId" style="width:200px; position: relative; left:-20px; bottom:6px;">
                         <option value="0">请选择分类</option>
                         @foreach($allCate as $cate)
                             <option value="{{$cate['id']}}">{{$cate['title']}}</option>
@@ -51,7 +51,7 @@
             </div>
 
 
-            <div class="am-form-group">
+            <div class="am-form-group" style="width:900px;">
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">文章图片: </label>
                 <!--dom结构部分-->
                 <div id="uploader-demo">
@@ -65,19 +65,10 @@
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">标签: </label>
                 @foreach($allTags as $tag)
                     <label class="am-checkbox-inline">
-                        <input type="checkbox" name="tagId[]" value="{{$tag['id']}}" style="height:20px; width:20px; margin-right:5px;"> {{$tag['title']}}
+                        <input type="checkbox"  class="tag" name="tagId[]" value="{{$tag['id']}}" style="height:20px; width:20px; margin-right:5px;"> {{$tag['title']}}
                     </label>
                 @endforeach
             </div>
-
-            <div class="am-form-group">
-                <label for="doc-ipt-3" class="col-sm-2 am-form-label">文章标签: </label>
-                <label class="am-checkbox-inline">
-                    <input type="checkbox" name="status" value="1" style="height:20px; width:20px; margin-right:5px;"> 启用
-                </label>
-            </div>
-
-
 
             <div class="am-form-group">
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">状态: </label>
@@ -123,23 +114,35 @@
             $("#addBtn").click(function() {
                 //校验表单
                 var title = $("#title").val();
-                var url = $("#url").val();
+                var description = $("#description").val();
+                var content = $("#editor").text();
+                var categoryId = $("select[name='categoryId']>option:selected").val();
+                var image = $("#image").val();
                 var status = $("input[name='status']:checked").val() == 1 ? 1 : 0;
+                var isHot = $("input[name='isHot']:checked").val() == 1 ? 1 : 0;
+                var isRec = $("input[name='isRec']:checked").val() == 1 ? 1 : 0;
+
+
+                //处理标签选择多个的情况
+                var tagIds=new Array();
+                $('input[name="tagId[]"]:checked').each(function(){
+                    tagIds.push($(this).val());//向数组中添加元素
+                });
+                var tagIdstr=tagIds.join(',');//将数组元素连接起来以构建一个字符串
 
                 $.ajaxSetup({
                     headers: { 'X-CSRF-TOKEN' : $("meta[name='x-csrf-token']").attr('content') }
                 });
 
-
                 $.ajax({
-                   url:'/admin/link/doAdd',
+                   url:'/admin/article/doAdd',
                    dataType:'Json',
                    type:'POST',
-                   data:{title:title,url:url,status:status},
+                   data:{title:title,description:description,content:content,categoryId:categoryId,image:image,tagIds:tagIdstr,isHot:isHot,isRec:isRec,status:status},
                    success:function(resp) {
                         if(resp.status === '000') {
                             layer.msg(resp.message,{icon:1});
-                            window.location.href = '/admin/link/index';
+                            window.location.href = '/admin/article/index';
                             window.localStorage.clear();
                         }else if(resp.status === '001') {
                             layer.msg(resp.message,{icon:2});

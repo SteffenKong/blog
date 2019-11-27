@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -48,6 +49,7 @@ class Link extends Model {
         ->when($status != -1,function($query) use($status) {
             return $query->where('status',$status);
         })
+        ->orderBy('sort','desc')
         ->orderBy('created_at','desc')
         ->paginate($pageSize);
 
@@ -174,5 +176,34 @@ class Link extends Model {
             ];
         }
         return $return;
+    }
+
+
+    /**
+     * @param $sorts
+     * @return bool
+     * 改变排序值
+     */
+    public function changeSort($sorts) {
+        $result = false;
+        try {
+            DB::beginTransaction();
+            foreach ($sorts ?? [] as $sort) {
+                $result1 = Link::where('id',$sort['id'])->update(['sort'=>$sort['sortVal'],'updated_at'=>Carbon::now()->toDateTimeString()]);
+                if(!$result1) {
+                    $result = false;
+                    break;
+                }
+                $result = true;
+            }
+        }catch (\Exception $e) {
+            $result = false;
+        }
+        if(!$result) {
+            DB::rollBack();
+            return false;
+        }
+        DB::commit();
+        return true;
     }
 }

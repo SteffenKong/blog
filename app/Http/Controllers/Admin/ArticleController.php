@@ -43,8 +43,8 @@ class ArticleController extends BaseController {
     public function index(Request $request) {
         $title = $request->get('title','');
         $status = $request->get('status',-1);
-        $isHot = $request->get('isHot','');
-        $isRec = $request->get('isRec','');
+        $isHot = $request->get('isHot',-1);
+        $isRec = $request->get('isRec',-1);
         $createdAt = $request->get('createdAt','');
         list($data,$paginate) = $this->articleModel->getListByAdmin($this->pageSize,$title,$status,$isHot,$isRec,$createdAt);
         return view('/admin/article/index',compact('data','paginate'));
@@ -71,7 +71,8 @@ class ArticleController extends BaseController {
      */
     public function doAdd(ArticleAddRequest $request) {
         $data = $request->post();
-        if(!$this->articleModel->add($data['title'],$data['description'],$data['bigImage'],$data['smallImage'],$data['status'],$data['isHot'],$data['isRec'],$data['author'],$data['content'],$data['cateId'],$data['tagIds'])) {
+        $author = $this->getAdminInfo()['account'];
+        if(!$this->articleModel->add($data['title'],$data['description'],$data['image'],$data['image'],$data['status'],$data['isHot'],$data['isRec'],$author,$data['content'],$data['categoryId'],explode(',',$data['tagIds']))) {
             return jsonPrint('001','发布失败!');
         }
         return jsonPrint('000','发布成功');
@@ -85,7 +86,6 @@ class ArticleController extends BaseController {
      * 编辑文章
      */
     public function edit(int $id) {
-
         //取出旧数据
         $article = $this->articleModel->getOne($id);
         if(!$article) {
@@ -95,7 +95,17 @@ class ArticleController extends BaseController {
         $allCate =  $this->categoryModel->getTree();
         //取出所有文章标签
         $allTags = $this->tagsModel->getAllTags();
-        return view('/admin/article/edit',compact('allCate','allTags','article'));
+
+        //取出当前的分类
+        $cateId = $this->articleModel->getCategoryByArticleId($id);
+
+        //取出当前的文章内容
+        $content = $this->articleModel->getContentByArticleId($id);
+
+        //取出当前的标签内容
+        $tagsId = $this->articleModel->getTagsByArticleId($id);
+
+        return view('/admin/article/edit',compact('allCate','allTags','article','cateId','content','tagsId'));
     }
 
 
@@ -107,7 +117,8 @@ class ArticleController extends BaseController {
      */
     public function doEdit(ArticleEditRequest $request) {
         $data = $request->post();
-        if(!$this->articleModel->edit($data['id'],$data['title'],$data['description'],$data['bigImage'],$data['smallImage'],$data['status'],$data['isHot'],$data['isRec'],$data['author'],$data['content'],$data['cateId'],$data['tagIds'])) {
+        $author = $this->getAdminInfo()['account'];
+        if(!$this->articleModel->edit($data['id'],$data['title'],$data['description'],$data['image'],$data['image'],$data['status'],$data['isHot'],$data['isRec'],$author,$data['content'],$data['categoryId'],explode(',',$data['tagIds']))) {
             return jsonPrint('001','编辑失败!');
         }
         return jsonPrint('000','编辑成功');
@@ -148,8 +159,8 @@ class ArticleController extends BaseController {
      */
     public function changeStatus(int $id) {
         if(!$this->articleModel->changeStatus($id)) {
-            return jsonPrint('001','删除失败!');
+            return jsonPrint('001','编辑失败!');
         }
-        return jsonPrint('000','删除成功');
+        return jsonPrint('000','编辑成功');
     }
 }

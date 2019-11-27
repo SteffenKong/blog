@@ -9,7 +9,7 @@ $(function(){
         swf:'http://www.blog.com/static/admin/assets/css/webuploader/Uploader.swf',
 
         // 文件接收服务端。
-        server: '',
+        server: '/admin/uploadFile',
 
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -20,7 +20,16 @@ $(function(){
             title: 'Images',
             extensions: 'gif,jpg,jpeg,bmp,png',
             mimeTypes: 'image/*'
-        }
+        },
+
+        //带上csrf token
+        formData: {
+            // 这里的token是外部生成的长期有效的，如果把token写死，是可以上传的。
+            _token:$("meta[name='x-csrf-token']").attr('content')
+            // 我想上传时再请求服务器返回token，改怎么做呢？反复尝试而不得。谢谢大家了！
+            //uptoken_url: '127.0.0.1:8080/examples/upload_token.php'
+        },
+
     });
 
 
@@ -79,15 +88,18 @@ $(function(){
     });
 
 // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-    uploader.on( 'uploadSuccess', function( file,reponse) {
-
-        if(reponse) {
-            if(reponse.status == '000'){
-                $("#image").attr('value',reponse.data);
+    uploader.on( 'uploadSuccess', function( file,response) {
+        if(response) {
+            if(response.status === '000'){
+                $("#image").attr('value',response.data.filePath);
+                layer.msg('上传成功',{icon:1});
+            } else {
+                layer.msg('上传失败',{icon:2});
             }
         }
         $( '#'+file.id ).addClass('upload-state-done');
     });
+
 
 // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

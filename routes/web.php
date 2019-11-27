@@ -70,6 +70,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::get('index','LinkController@index')->name('/link/index');
             Route::get('add','LinkController@add')->name('/link/add');
             Route::post('doAdd','LinkController@doAdd');
+            Route::post('changeSort','LinkController@changeSort');
             Route::post('changeStatus/{id}','LinkController@changeStatus');
             Route::get('edit/{id}','LinkController@edit');
             Route::put('doEdit','LinkController@doEdit');
@@ -87,5 +88,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::put('doEdit','ArticleController@doEdit');
             Route::delete('delete/{id}','ArticleController@delete');
         });
+
+
+        //文件上传功能
+        Route::post('/uploadFile','UploadController@uploadFile');
     });
 });
