@@ -36,3 +36,22 @@ if(!function_exists('getTree')) {
         return $arr;
     }
 }
+
+
+/**
+ * 隐藏电话号码中间6位数
+ */
+if(!function_exists('hiddenPhone')) {
+    function hiddenPhone($phone) {
+        if (empty($phone) || strlen($phone) != 11) {
+            return false;
+        }
+        //构造正则
+        $sensitiveNum = '/'.substr($phone,2,6).'/';
+        $newStr = preg_replace($sensitiveNum,'******',$phone);
+        if(!$newStr) {
+            return str_replace($phone,'*',$phone);
+        }
+        return $newStr;
+    }
+}

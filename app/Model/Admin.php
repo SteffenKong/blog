@@ -175,7 +175,7 @@ class Admin extends Model
                     'id'=>$value->id,
                     'account'=>$value->account,
                     'email'=>$value->email,
-                    'phone'=>$value->phone,
+                    'phone'=>hiddenPhone($value->phone),
                     'status'=>$value->status,
                     'lastLoginIp'=>$value->last_login_ip,
                     'lastLoginTime'=>$value->last_login_time,
