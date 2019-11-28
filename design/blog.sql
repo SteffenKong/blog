@@ -140,3 +140,17 @@ create table if not exists blog_comment(
     key idx_pid (pid),
     key idx_is_verify (is_verify)
 )charset=utf8,engine=innodb;
+
+-- 横幅表
+create table if not exists blog_banner(
+    id mediumint unsigned not null auto_increment,
+    title varchar(191) not null comment '横幅名字',
+    image varchar(191) not null comment '横幅图片路径',
+    status tinyint default 0 not null comment '状态 0 - 启用 1 - 禁用',
+    is_join tinyint default 0 not null comment '是否加入队列 0 - 未加入 1 - 轮播中',
+    created_at datetime not null comment '添加时间',
+    updated_at datetime not null comment '编辑时间',
+    primary key (id),
+    unique key uk_title (title),
+    key idx_status (status)
+)charset=utf8,engine=innodb;

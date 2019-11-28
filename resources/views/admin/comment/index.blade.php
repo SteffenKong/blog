@@ -5,7 +5,7 @@
     <div class="admin-content">
 
         <div class="am-cf am-padding">
-            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">标签模块</strong> / <small>列表</small></div>
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">评论模块</strong> / <small>列表</small></div>
         </div>
 
         <div class="am-g">
@@ -13,24 +13,31 @@
                 <div class="am-fl am-cf">
                     <div class="am-btn-toolbar am-fl">
                         <div class="am-btn-group am-btn-group-xs">
-                            <button type="button" class="am-btn am-btn-default" onclick="window.location.href = '/admin/tags/add'"><span class="am-icon-plus"></span> 新增</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                        </div>
+
+                        <div class="am-form-group am-margin-left am-fl">
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:500px;">
-                <div class="am-fr" style="width:100%; float:right;">
-                    <form class="am-form  am-form-inline" method="GET" action="{{route('/tags/index')}}">
+            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:900px;">
+                <div class="am-fr" style="width:100%;">
+                    <form class="am-form  am-form-inline" method="GET" action="{{route('/link/index')}}">
                         <div class="am-form-group">
-                            <input type="text" name="title" value="{{request()->get('title')}}" class="am-form-field" placeholder="搜索标签名称">
+                            <input type="text" name="userName" value="{{request()->get('userName')}}" class="am-form-field" placeholder="搜索评论者昵称">
                         </div>
+
+                        <div class="am-form-group">
+                            <input type="text" name="email" class="am-form-field" value="{{request()->get('email')}}" placeholder="搜索邮箱">
+                        </div>
+
                         <div class="am-form-group am-margin-left am-fl" style="width:80px; margin-right:10px;">
                             <select name="status">
                                 <option value="-1" selected="selected">所有</option>
-                                <option value="1" @if(request()->get('status') == 1) selected="selected" @endif>启用</option>
-                                <option value="0" @if(request()->get('status') === '0') selected="selected" @endif>禁用</option>
+                                <option value="0" @if(request()->get('isVerify') == 1) selected="selected" @endif>待审核</option>
+                                <option value="1" @if(request()->get('isVerify') == 2) selected="selected" @endif>通过</option>
+                                <option value="2" @if(request()->get('status') === 3) selected="selected" @endif>未通过</option>
                             </select>
                         </div>
                         <button type="submit" class="am-btn am-btn-default">搜索</button>
@@ -48,35 +55,42 @@
                             <th class="table-check">
                                 <input type="checkbox" />
                             </th><th class="table-id">ID</th>
-                            <th class="table-title">标签名称</th>
-                            <th class="table-type">标签描述</th>
-                            <th class="table-type">状态</th>
+                            <th class="table-title">评论者昵称</th>
+                            <th class="table-type">评论者邮箱</th>
+                            <th class="table-type">上级回复</th>
+                            <th class="table-type">内容</th>
+                            <th class="table-type">审核状态</th>
+                            <th class="table-type">审核时间</th>
                             <th class="table-date">添加日期</th>
                             <th class="table-date">修改日期</th>
                             <th class="table-set">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($data as $tag)
+                        @foreach($data as $comment)
                         <tr>
                             <td><input type="checkbox" /></td>
-                            <td>{{$tag['id']}}</td>
-                            <td>{{$tag['title']}}</td>
-                            <td><a href="#" class="link" data-id="{{$tag['id']}}">查看描述</a></td>
+                            <td>{{$comment['id']}}</td>
+                            <td>{{$comment['userName']}}</td>
+                            <td>{{$comment['email']}}/td>
+                            <td>{{$comment['pid']}}/td>
+                            <td>{{$comment['content']}}/td>
                             <td>
-                                @if($tag['status'] == 1)
-                                    <a class="am-btn  am-btn-secondary status"  data-id="{{$tag['id']}}" style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">启用</a>
+                                @if($comment['is_verify'] == 1)
+                                    <a class="am-btn  am-btn-secondary status"  data-id="{{$comment['id']}}" style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">通过</a>
+                                @elseif($comment['is_verify'] == 2)
+                                    <a class="am-btn am-btn-danger status" data-id="{{$comment['id']}}"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">不通过</a>
                                 @else
-                                    <a class="am-btn am-btn-danger status" data-id="{{$tag['id']}}"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">禁用</a>
+                                    <a class="am-btn am-btn-warning status" data-id="{{$comment['id']}}"  style="height:30px; width:60px; line-height: 10px; text-align: center; font-size:13px;">待审核</a>
                                 @endif
                             </td>
-                            <td>{{$tag['created_at']}}</td>
-                            <td>{{$tag['updated_at']}}</td>
+                            <td>{{$comment['verifyTime']}}</td>
+                            <td>{{$comment['createdAt']}}</td>
+                            <td>{{$comment['updatedAt']}}</td>
                             <td>
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <a class="am-btn am-btn-default am-btn-xs am-text-secondary" style="background-color:white;" href="/admin/tags/edit/{{$tag["id"]}}"><span class="am-icon-pencil-square-o"></span> 编辑</a>
-                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger del"   data-id="{{$tag['id']}}"><span class="am-icon-trash-o"></span>删除</button>
+                                        <a class="am-btn am-btn-default am-btn-xs am-text-secondary" style="background-color:white;" href="/admin/link/edit/{{$link["id"]}}"><span class="am-icon-pencil-square-o"></span> 审核</a>
                                     </div>
                                 </div>
                             </td>
@@ -116,7 +130,7 @@
             var thisObj = $(this);
 
             $.ajax({
-                url:'/admin/tags/changeStatus/'+id,
+                url:'/admin/link/changeStatus/'+id,
                 data:null,
                 dataType:'Json',
                 type:'POST',
@@ -149,7 +163,7 @@
             var id = $(this).attr('data-id');
             var thisObj = $(this);
             $.ajax({
-                url:'/admin/tags/delete/'+id,
+                url:'/admin/link/delete/'+id,
                 data:null,
                 dataType:'Json',
                 type:'delete',
@@ -165,16 +179,37 @@
         });
 
 
-        //iframe层-父子操作
-        $('.link').click(function() {
-            var id = $(this).attr('data-id');
-            layer.open({
-                type: 2,
-                title:'标签简介',
-                area: ['360px', '500px'],
-                skin: 'layui-layer-rim', //加上边框
-                scrollBar:true,
-                content: ['/admin/tags/getDescriptionById/'+id, 'no']
+        /**
+         * 一键排序
+         */
+        $("#sortBtn").click(function() {
+            var sortsText = $(".sortText");
+            var data = [];
+
+            sortsText.each(function() {
+                var id = $(this).attr('data-id');
+                var sortVal = $(this).val();
+                var tempObj = {
+                    id:id,
+                    sortVal
+                };
+                data.push(tempObj);
+            });
+
+            $.ajax({
+                url:'/admin/link/changeSort',
+                data:{sorts:data},
+                type:'POST',
+                dataType:'Json',
+                success:function(resp) {
+                    console.log(resp);
+                    if(resp.status === '000') {
+                        layer.msg(resp.message,{icon:1});
+                        window.location.reload();
+                    }else {
+                        layer.msg(resp.message,{icon:2});
+                    }
+                }
             });
         });
     </script>

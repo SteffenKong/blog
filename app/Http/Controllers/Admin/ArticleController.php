@@ -117,6 +117,15 @@ class ArticleController extends BaseController {
      */
     public function doEdit(ArticleEditRequest $request) {
         $data = $request->post();
+
+        if($this->articleModel->checkTitleIsExistsExcepId($data['id'],$data['title'])) {
+            return jsonPrint('002','文章标题已存在!');
+        }
+
+        if($this->articleModel->checkDescirptionIsExistsExcepId($data['id'],$data['description'])) {
+            return jsonPrint('002','文章简介已存在!');
+        }
+
         $author = $this->getAdminInfo()['account'];
         if(!$this->articleModel->edit($data['id'],$data['title'],$data['description'],$data['image'],$data['image'],$data['status'],$data['isHot'],$data['isRec'],$author,$data['content'],$data['categoryId'],explode(',',$data['tagIds']))) {
             return jsonPrint('001','编辑失败!');

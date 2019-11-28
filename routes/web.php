@@ -90,6 +90,14 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
         });
 
 
+        //评论管理
+        Route::group(['prefix'=>'comment'],function() {
+            Route::get('index','CommentController@index')->name('/comment/index');
+            Route::post('verify/{id}','CommentController@verify');
+            Route::delete('delete/{id}','CommentController@delete');
+        });
+
+
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });

@@ -118,5 +118,4 @@ $(function(){
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').remove();
     });
-
 });
