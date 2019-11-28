@@ -97,7 +97,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::delete('delete/{id}','CommentController@delete');
         });
 
-        //文章管理
+
+        //横幅管理
         Route::group(['prefix'=>'banner'],function() {
             Route::get('index','BannerController@index')->name('/banner/index');
             Route::get('add','BannerController@add')->name('/banner/add');
