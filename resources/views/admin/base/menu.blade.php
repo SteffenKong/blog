@@ -31,12 +31,12 @@
             <a class="am-cf" data-am-collapse="{target: '#collapse-nav4'}"><span class="glyphicon glyphicon-cog"></span> 网站管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
             <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav4">
                 <li><a href="{{route('/link/index')}}"><span class="am-icon-puzzle-piece"></span>&nbsp;友情链接</a></li>
-                <li><a href="{{route('/link/index')}}"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp;横幅管理</a></li>
+                <li><a href="{{route('/banner/index')}}"><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp;横幅管理</a></li>
             </ul>
         </li>
 
         <li class="tags-parent">
-            <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="glyphicon glyphicon-wrenc"></span> 后台设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="glyphicon glyphicon-wrench"></span> 后台设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
             <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
                 <li><a href="{{route('/link/index')}}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;后台配置</a></li>
                 <li><a href="{{route('/link/index')}}"><span class="glyphicon glyphicon-hdd"></span>&nbsp;队列管理</a></li>

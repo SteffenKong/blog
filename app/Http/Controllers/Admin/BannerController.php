@@ -53,7 +53,7 @@ class BannerController extends BaseController {
      */
     public function doAdd(BannerAddRequest $request) {
         $data = $request->post();
-        if(!$this->bannerModel->add($data['title'],$data['image'],$status)) {
+        if(!$this->bannerModel->add($data['title'],$data['image'],$data['status'])) {
             return jsonPrint('001','添加失败!');
         }
         return jsonPrint('000','添加成功');
@@ -86,10 +86,10 @@ class BannerController extends BaseController {
             return jsonPrint('002','横幅名称已存在!');
         }
 
-        if(!$this->bannerModel->edit($data['id'],$data['title'],$data['image'],$status)) {
-            return jsonPrint('001','添加失败!');
+        if(!$this->bannerModel->edit($data['id'],$data['title'],$data['image'],$data['status'])) {
+            return jsonPrint('001','编辑失败!');
         }
-        return jsonPrint('000','添加成功');
+        return jsonPrint('000','编辑成功');
     }
 
 

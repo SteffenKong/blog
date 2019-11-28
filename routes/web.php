@@ -97,6 +97,17 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::delete('delete/{id}','CommentController@delete');
         });
 
+        //文章管理
+        Route::group(['prefix'=>'banner'],function() {
+            Route::get('index','BannerController@index')->name('/banner/index');
+            Route::get('add','BannerController@add')->name('/banner/add');
+            Route::post('doAdd','BannerController@doAdd');
+            Route::post('changeStatus/{id}','BannerController@changeStatus');
+            Route::get('edit/{id}','BannerController@edit');
+            Route::put('doEdit','BannerController@doEdit');
+            Route::delete('delete/{id}','BannerController@delete');
+        });
+
 
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');

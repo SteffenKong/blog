@@ -44,6 +44,7 @@ class Banner extends Model {
                 $return[] = [
                     'id' => $banner->id,
                     'title' => $banner->title,
+                    'image' => $banner->image,
                     'status' => $banner->status,
                     'createdAt' => $banner->created_at,
                     'updatedAt' => $banner->updated_at
@@ -109,7 +110,7 @@ class Banner extends Model {
         if(!$oldStatus) {
             $status = 1;
         }
-        return Banner::where('id',$status)->update([
+        return Banner::where('id',$bannerId)->update([
             'status' => $status,
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
@@ -128,6 +129,7 @@ class Banner extends Model {
             $return = [
                 'id' => $banner->id,
                 'title' => $banner->title,
+                'image' => $banner->image,
                 'status' => $banner->status,
                 'createdAt' => $banner->created_at,
                 'updatedAt' => $banner->updated_at
