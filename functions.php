@@ -1,5 +1,8 @@
 <?php
 
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Client;
+
 /**
  * json格式化输出
  */
@@ -53,5 +56,35 @@ if(!function_exists('hiddenPhone')) {
             return str_replace($phone,'*',$phone);
         }
         return $newStr;
+    }
+}
+
+
+/**
+ * 获取客户端IP
+ */
+if(!function_exists('getIp')) {
+    function getIp() {
+        return  \request()->getClientIp();
+    }
+}
+
+
+/**
+ * 通过ip获取所在地方
+ */
+if(!function_exists('getPlaceByIp')) {
+    function getPlaceByIp($ip) {
+        $url = "http://ip.taobao.com/service/getIpInfo.php?ip=116.18.22.38";
+        $ch = \curl_init($url);
+        \curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        $content = \curl_exec($ch);
+        if(curl_errno($ch) > 0) {
+            return false;
+        }
+        $content =  json_decode($content,true);
+        $data = $content['data'];
+        $place = $data['country']."\t".$data['region']."\t".$data['city'];
+        return $place;
     }
 }

@@ -110,7 +110,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
         });
 
 
+
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });
+
+    Route::get('/test','TestController@test');
 });

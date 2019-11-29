@@ -10,25 +10,23 @@ use Nette\Mail\SmtpMailer;
  * @package App\Tools
  * 邮件发送
  */
-class mailer {
+class SendMailer {
 
     private $mailer;
 
+
+    public function __construct() {
+        $this->connectMailServer();
+    }
 
     /**
      * 连接邮件服务器
      */
     private function connectMailServer() {
         $this->mailer = new SmtpMailer([
-            'host' => 'smtp.gmail.com',
-            'username' => '',
-            'password' => '',
-            'secure' => 'ssl',
-            'context' =>  [
-                'ssl' => [
-                    'capath' => '/path/to/my/trusted/ca/folder',
-                ],
-            ],
+            'host' => \config('smtp.smtpServerHost'),
+            'username' => \config('smtp.smtpUserName'),
+            'password' => \config('smtp.smtpPassword'),
         ]);
     }
 
@@ -42,7 +40,7 @@ class mailer {
      */
     public function send($addTo,$subject,$content) {
         $mail = new Message;
-        $mail->setFrom('John <john@example.com>')
+        $mail->setFrom(\config('smtp.smtp_Send_From').' <'.\config('smtp.smtpUserName').'>')
             ->addTo($addTo)
             ->setSubject($subject)
             ->setHTMLBody("<p>".$content."</p>");

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\LoginEvent;
+use App\Events\SendLoginMessage;
 use App\Http\Requests\LoginRequest;
 use App\Tools\Loader;
 use App\Model\Admin;
+use App\Tools\SendMailer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,8 +43,9 @@ class LoginController extends Controller {
         if (!$adminModel->checkStatus($admin['id'])) {
             return jsonPrint('002','管理员未激活!');
         }
-        \
-        event(new LoginEvent($admin,Carbon::now()->toDateTimeString(),$request->getClientIp(),$admin['email'],$admin['phone']));
+
+        \event(new LoginEvent($admin,Carbon::now()->toDateTimeString(),$request->getClientIp(),$admin['email'],$admin['phone']));
+        \event(new SendLoginMessage(getIp(),$admin['account'],$admin['email']));
 
         return jsonPrint('000','登录成功');
     }
