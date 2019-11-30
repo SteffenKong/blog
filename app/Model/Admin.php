@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Hash;
  * Class Admin
  * @package App\Model
  */
-class Admin extends Model
-{
+class Admin extends Model {
 
     protected $table = 'admin';
 

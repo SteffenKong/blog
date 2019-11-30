@@ -74,7 +74,7 @@ class AdminController extends BaseController {
     }
 
 
-    /**
+    /**g
      * @param AdminEditRequest $request
      * @return \Illuminate\Http\JsonResponse
      * 编辑动作

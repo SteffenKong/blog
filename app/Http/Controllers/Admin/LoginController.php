@@ -41,7 +41,7 @@ class LoginController extends Controller {
         if (!$adminModel->checkStatus($admin['id'])) {
             return jsonPrint('002','管理员未激活!');
         }
-        \
+
         event(new LoginEvent($admin,Carbon::now()->toDateTimeString(),$request->getClientIp(),$admin['email'],$admin['phone']));
 
         return jsonPrint('000','登录成功');
