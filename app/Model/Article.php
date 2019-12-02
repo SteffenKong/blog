@@ -448,4 +448,55 @@ class Article extends Model {
     public function checkDescirptionIsExistsExcepId($id,$description) {
         return Article::where('id','!=',$id)->where('description',$description)->count();
     }
+
+
+
+    /**
+     * @param int $limit
+     * @return mixed
+     * 获取前10篇热销并且推荐的文章
+     */
+    public function getArticleByHot($limit = 10) {
+        $return = [];
+        $data = Article::where('is_hot',1)->where('is_rec',1)->where('status',1)->orderBy('created_at','desc')->selectRaw('id,title,description,view_number,author,small_image,created_at')->paginate($limit);
+        if(!empty($data)) {
+            foreach ($data ?? [] as $article) {
+                $return[] = [
+                    'id' => $article->id,
+                    'title' => $article->title,
+                    'description' => $article->description,
+                    'viewNumber' => $article->view_number,
+                    'author' => $article->author,
+                    'smallImage' => $article->small_image,
+                    'createdAt' => $article->created_at
+                ];
+            }
+        }
+        return [$return,$data];
+    }
+
+
+    /**
+     * @param int $limit
+     * @return array
+     * 获取推荐文章
+     */
+    public function getArticleByRec($limit = 6) {
+        $return = [];
+        $data = Article::where('is_rec',1)->where('is_hot',1)->where('status',1)->orderBy('view_number','desc')->orderBy('created_at','desc')->limit($limit)->get(['title','view_number']);
+        if(!empty($data)) {
+            foreach ($data ?? [] as $article) {
+                $return[] = [
+                    'id' => $article->id,
+                    'title' => $article->title,
+                    'description' => $article->description,
+                    'viewNumber' => $article->view_number,
+                    'author' => $article->author,
+                    'smallImage' => $article->small_image,
+                    'createdAt' => $article->created_at
+                ];
+            }
+        }
+        return $return;
+    }
 }

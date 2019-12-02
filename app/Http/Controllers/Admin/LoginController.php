@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\LoginEvent;
+use App\Tools\Loader;
 use App\Events\SendLoginMessage;
 use App\Http\Requests\LoginRequest;
-use App\Tools\Loader;
+use App\Events\LoginEvent;
 use App\Model\Admin;
-use App\Tools\SendMailer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

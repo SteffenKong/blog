@@ -109,11 +109,20 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::delete('delete/{id}','BannerController@delete');
         });
 
-
-
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });
 
     Route::get('/test','TestController@test');
+});
+
+
+
+Route::group(['namespace'=>'Blog','prefix'=>'blog'],function() {
+
+    Route::get('index','IndexController@index');
+    Route::get('getTagsCloud','IndexController@getTagsCloud');
+    Route::get('getRec','IndexController@getRecArticleTitle');
+    Route::get('getLinks','IndexController@getLinks');
+    Route::get('getCates','IndexController@getCates');
 });

@@ -206,4 +206,24 @@ class Link extends Model {
         DB::commit();
         return true;
     }
+
+
+    /**
+     * @param int $limit
+     * @return array
+     * 获取标签
+     */
+    public function getLinkByLimit($limit = 6) {
+        $return = [];
+        $links = Link::where('status',1)->orderBy('sort','desc')->orderBy('created_at','desc')->limit($limit)->get(['title','url']);
+        if(!empty($links)) {
+            foreach ($links ?? [] as $link) {
+                $return[] = [
+                    'title' => $link->title,
+                    'url' => $link->url,
+                ];
+            }
+        }
+        return $return;
+    }
 }

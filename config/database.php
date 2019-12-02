@@ -90,6 +90,15 @@ return [
             'prefix_indexes' => true,
         ],
 
+
+//        'mongodb' => [
+//            'driver'   => 'mongodb',
+//            'host'     => 'localhost',
+//            'port'     => 27017,
+//            'database' => 'mydb',
+//            'username' => '',
+//            'password' => '',
+//        ],
     ],
 
     /*
