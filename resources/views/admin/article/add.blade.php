@@ -56,12 +56,12 @@
                 <!--dom结构部分-->
                 <div id="uploader-demo">
                     <!--用来存放item-->
-                    <div id="fileList" class="uploader-list"></div>
-                    <div id="filePicker">选择图片</div>
+                    <div id="fileList" class="uploader-list" style="float:right;"></div>
+                    <div id="filePicker" style="float:left;">选择图片</div>
                     <input type="hidden" value="" id="image" />
             </div>
 
-            <div class="am-form-group">
+            <div class="am-form-group" style="clear:both;">
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">标签: </label>
                 @foreach($allTags as $tag)
                     <label class="am-checkbox-inline">
@@ -121,6 +121,10 @@
                 var status = $("input[name='status']:checked").val() == 1 ? 1 : 0;
                 var isHot = $("input[name='isHot']:checked").val() == 1 ? 1 : 0;
                 var isRec = $("input[name='isRec']:checked").val() == 1 ? 1 : 0;
+
+                if(image == '') {
+                    layer.msg('请上传文章图片',{icon:2});
+                }
 
 
                 //处理标签选择多个的情况

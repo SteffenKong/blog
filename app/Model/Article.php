@@ -426,4 +426,26 @@ class Article extends Model {
     public function getCategoryByArticleId($articleId) {
         return ArticleCategory::where('article_id',$articleId)->value('category_id');
     }
+
+
+    /**
+     * @param $id
+     * @param $title
+     * @return mixed
+     * 检测文章标题否存在(编辑时)
+     */
+    public function checkTitleIsExistsExcepId($id,$title) {
+        return Article::where('id','!=',$id)->where('title',$title)->count();
+    }
+
+
+    /**
+     * @param $id
+     * @param $description
+     * @return mixed
+     * 检测文章简介是否存在(编辑时)
+     */
+    public function checkDescirptionIsExistsExcepId($id,$description) {
+        return Article::where('id','!=',$id)->where('description',$description)->count();
+    }
 }

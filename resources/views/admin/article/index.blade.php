@@ -23,14 +23,42 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 am-cf" style="margin-top:30px;">
-                <div class="am-fr">
-                    <div class="am-input-group am-input-group-sm">
-                        <input type="text" class="am-form-field">
-                        <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
-                    </div>
+            <div class="col-md-3 am-cf" style="margin-bottom:60px; width:980px;">
+                <div class="am-fr" style="width:100%; float:right;">
+                    <form class="am-form  am-form-inline" method="GET" action="{{route('/article/index')}}">
+                        <div class="am-form-group">
+                            <input type="text" name="author" value="{{request()->get('author')}}" class="am-form-field" placeholder="搜索作者名称">
+                        </div>
+
+                        <div class="am-form-group">
+                            <input type="text" name="title" value="{{request()->get('title')}}" class="am-form-field" placeholder="搜索文章标题">
+                        </div>
+                        <div class="am-form-group am-margin-left am-fl" style="width:80px;">
+                            <select name="status">
+                                <option value="-1" selected="selected">所有</option>
+                                <option value="1" @if(request()->get('status') == 1) selected="selected" @endif>启用</option>
+                                <option value="0" @if(request()->get('status') == 0) selected="selected" @endif>禁用</option>
+                            </select>
+                        </div>
+
+                        <div class="am-form-group am-margin-left am-fl" style="width:80px;">
+                            <select name="isHot">
+                                <option value="-1" selected="selected" selected="selected">所有</option>
+                                <option value="1" @if(request()->get('isHot') == 1) selected="selected" @endif>热推</option>
+                                <option value="0" @if(request()->get('isHot') === '0') selected="selected" @endif>非热推</option>
+                            </select>
+                        </div>
+
+                        <div class="am-form-group am-margin-left am-fl" style="width:80px; margin-right:10px;">
+                            <select name="isRec">
+                                <option value="-1" selected="selected">所有</option>
+                                <option value="1" @if(request()->get('isRec') == 1) selected="selected" @endif>推荐</option>
+                                <option value="0" @if(request()->get('isRec') == 0) selected="selected" @endif>非推荐</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="am-btn am-btn-default">搜索</button>
+                    </form>
                 </div>
             </div>
         </div>

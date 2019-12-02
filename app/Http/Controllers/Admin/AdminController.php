@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\AdminAddRequest;
 use App\Http\Requests\AdminEditRequest;
-use App\Tools\Loader;
-use App\Model\Admin;
+use App\Http\Requests\AdminAddRequest;
 use Illuminate\Http\Request;
 
 /**

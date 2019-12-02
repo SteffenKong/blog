@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\LoginEvent::class => [
             'App\Listeners\Login'
+        ],
+        \App\Events\SendLoginMessage::class => [
+            'App\Listeners\SendLoginMessageListener'
         ]
     ];
 

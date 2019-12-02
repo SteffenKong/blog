@@ -45,4 +45,26 @@ class UploadController extends BaseController {
             return jsonPrint('002','非法访问');
         }
     }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 删除上传的文件
+     */
+    public function deleteFile(Request $request) {
+        $fileName = $request->get('fileName');
+        if(empty($fileName)) {
+            return jsonPrint('000','非法访问!');
+        }
+
+        if (!file_exists($fileName)) {
+            return jsonPrint('001','文件不存在!');
+        }
+        if(unlink($fileName)) {
+            return jsonPrint('000','文件删除成功');
+        }
+
+        return jsonPrint('001','文件删除失败!');
+    }
 }

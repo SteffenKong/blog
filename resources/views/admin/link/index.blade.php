@@ -29,18 +29,18 @@
                 <div class="am-fr" style="width:100%;">
                     <form class="am-form  am-form-inline" method="GET" action="{{route('/link/index')}}">
                         <div class="am-form-group">
-                            <input type="text" name="title" class="am-form-field" placeholder="搜索友情链接名称">
+                            <input type="text" name="title" value="{{request()->get('title')}}" class="am-form-field" placeholder="搜索友情链接名称">
                         </div>
 
                         <div class="am-form-group">
-                            <input type="text" name="url" class="am-form-field" placeholder="搜索友情链接url">
+                            <input type="text" name="url" class="am-form-field" value="{{request()->get('url')}}" placeholder="搜索友情链接url">
                         </div>
 
                         <div class="am-form-group am-margin-left am-fl" style="width:80px; margin-right:10px;">
                             <select name="status">
-                                <option value="-1">所有</option>
-                                <option value="1">启用</option>
-                                <option value="0">禁用</option>
+                                <option value="-1" selected="selected">所有</option>
+                                <option value="1" @if(request()->get('status') == 1) selected="selected" @endif>启用</option>
+                                <option value="0" @if(request()->get('status') === '0') selected="selected" @endif>禁用</option>
                             </select>
                         </div>
                         <button type="submit" class="am-btn am-btn-default">搜索</button>

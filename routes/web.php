@@ -90,7 +90,30 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
         });
 
 
+        //评论管理
+        Route::group(['prefix'=>'comment'],function() {
+            Route::get('index','CommentController@index')->name('/comment/index');
+            Route::post('verify/{id}','CommentController@verify');
+            Route::delete('delete/{id}','CommentController@delete');
+        });
+
+
+        //横幅管理
+        Route::group(['prefix'=>'banner'],function() {
+            Route::get('index','BannerController@index')->name('/banner/index');
+            Route::get('add','BannerController@add')->name('/banner/add');
+            Route::post('doAdd','BannerController@doAdd');
+            Route::post('changeStatus/{id}','BannerController@changeStatus');
+            Route::get('edit/{id}','BannerController@edit');
+            Route::put('doEdit','BannerController@doEdit');
+            Route::delete('delete/{id}','BannerController@delete');
+        });
+
+
+
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });
+
+    Route::get('/test','TestController@test');
 });

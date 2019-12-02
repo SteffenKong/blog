@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\LoginEvent;
+use App\Events\SendLoginMessage;
 use App\Http\Requests\LoginRequest;
 use App\Tools\Loader;
 use App\Model\Admin;
@@ -42,7 +43,11 @@ class LoginController extends Controller {
             return jsonPrint('002','管理员未激活!');
         }
 
-        event(new LoginEvent($admin,Carbon::now()->toDateTimeString(),$request->getClientIp(),$admin['email'],$admin['phone']));
+        //登录生成session
+        \event(new LoginEvent($admin,Carbon::now()->toDateTimeString(),$request->getClientIp(),$admin['email'],$admin['phone']));
+
+        //发送邮箱以及记录日志
+        \event(new SendLoginMessage(getIp(),$admin['account'],$admin['email']));
 
         return jsonPrint('000','登录成功');
     }
