@@ -109,8 +109,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::delete('delete/{id}','BannerController@delete');
         });
 
-
-
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });
