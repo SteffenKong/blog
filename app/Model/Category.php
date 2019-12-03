@@ -182,6 +182,7 @@ class Category extends Model {
         if(!empty($cates)) {
             foreach ($cates ?? [] as $cate) {
                 $return[] = [
+                    'id' => $cate->id,
                     'title' => $cate->title
                 ];
             }

@@ -34,6 +34,8 @@ class BaseController extends Controller {
     protected $categotyModel;
 
 
+    protected $pageSize;
+
     /**
      * BaseController constructor
      */
@@ -43,5 +45,12 @@ class BaseController extends Controller {
         $this->bannerModel = Loader::singleton(Banner::class);
         $this->linksModel = Loader::singleton(Link::class);
         $this->categotyModel = Loader::singleton(Category::class);
+        $this->pageSize = \config('blog.blog.pageSize');
+    }
+
+
+    public function showCates() {
+        $cates = $this->categotyModel->getParentCate(5);
+        return view('/blog/list/list',compact('cates'));
     }
 }

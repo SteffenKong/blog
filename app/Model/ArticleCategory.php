@@ -3,12 +3,13 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * Class ArticleCategory
  * @package App\Model
  */
-class ArticleCategory extends Model
+class ArticleCategory extends Pivot
 {
     protected $table = 'article_category';
     protected $primaryKey = 'id';

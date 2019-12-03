@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  @include("/blog/Base/meta")
+    @include("/blog/Base/meta")
 </head>
 <body>
-
-{{--header部分--}}
 @include("/blog/Base/header")
 
 <div class="am-g am-g-fixed blog-g-fixed">
   <div class="col-md-8">
-    @foreach($articles as $article)
+    @foreach($data as $article)
         <article class="blog-main" style="height: 280px;">
           <h3 class="am-article-title blog-title">
             <a href="#">{{$article['title']}}</a>
@@ -32,14 +30,12 @@
         <hr class="am-article-divider blog-hr">
     @endforeach
     <hr class="am-article-divider blog-hr">
-    <ul class="am-pagination blog-pagination">
-{{--      <li class="am-pagination-prev"><a href="">&laquo; 上一页</a></li>--}}
-{{--      <li class="am-pagination-next"><a href="">下一页 &raquo;</a></li>--}}
+    <ul class="am-pagination blog-pagination" style="float:right;">
+        {{$paginate->render()}}
     </ul>
   </div>
 
-  @include("/blog/Base/right")
-
+    @include("/blog/Base/right")
 </div>
 
 @include("/blog/Base/footer")

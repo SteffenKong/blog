@@ -125,4 +125,7 @@ Route::group(['namespace'=>'Blog','prefix'=>'blog'],function() {
     Route::get('getRec','IndexController@getRecArticleTitle');
     Route::get('getLinks','IndexController@getLinks');
     Route::get('getCates','IndexController@getCates');
+    Route::get('getListByTagId/{tagId}','ListController@getListByTagId');
+    Route::get('getListByCateId/{cateId}','ListController@getListByCateId');
+    Route::get('getList/{keyWords}','ListController@getList');
 });

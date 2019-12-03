@@ -2,6 +2,7 @@ $(function() {
     getTags();
     getLinks();
     getArticleByRec();
+    getCates();
 });
 
 /**
@@ -13,7 +14,6 @@ function getTags() {
         dataType:'Json',
         type:'GET',
         success:function(resp) {
-            console.log(resp)
             if(resp.status == '000') {
                 allAobj = '';
                 colorList = ['#FF5722','#FFB800','#2F4056','#01AAED','#1E9FFF','#009688','#393D49'];
@@ -76,7 +76,7 @@ function getLinks() {
 /**
  * 获取分类
  */
-function getLinks() {
+function getCates() {
     $.ajax({
         url:'/blog/getCates',
         dataType:'Json',

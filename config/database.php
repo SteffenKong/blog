@@ -91,14 +91,14 @@ return [
         ],
 
 
-//        'mongodb' => [
-//            'driver'   => 'mongodb',
-//            'host'     => 'localhost',
-//            'port'     => 27017,
-//            'database' => 'mydb',
-//            'username' => '',
-//            'password' => '',
-//        ],
+        'mongodb' => [
+            'driver'   => 'mongodb',
+            'host'     => '139.199.207.199',
+            'port'     => 27017,
+            'database' => 'blog',
+            'username' => '',
+            'password' => '',
+        ]
     ],
 
     /*
