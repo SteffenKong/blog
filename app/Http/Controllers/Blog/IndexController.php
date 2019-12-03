@@ -22,7 +22,8 @@ class IndexController extends BaseController {
     public function index() {
         //获取前10篇比较热的文章
         list($articles,$paginate) = $this->articleModel->getArticleByHot(10);
-        return view('/blog/index/blog',compact('articles','paginate'));
+        $cates = $this->categotyModel->getParentCate(5);
+        return view('/blog/index/blog',compact('articles','paginate','cates'));
     }
 
 
