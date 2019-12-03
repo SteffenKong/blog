@@ -83,7 +83,7 @@
 </head>
 <body>
 <header class="am-topbar">
-  <h1 class="am-topbar-brand" style="float:right;">
+  <h1 class="am-topbar-brand" style="position:absolute; left:400px;">
     <a href="#">Steffen个人博客</a>
   </h1>
 
@@ -92,7 +92,7 @@
       class="am-icon-bars"></span></button>
 
   <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-    <ul class="am-nav am-nav-pills am-topbar-nav" style="margin-left:350px;">
+    <ul class="am-nav am-nav-pills am-topbar-nav" style="margin-left:570px;">
       <li class="am-active"><a href="#">首页</a></li>
         @foreach($cates ?? [] as $cate)
             <li><a href="#">{{$cate['title']}}</a></li>
