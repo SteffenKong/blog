@@ -27,9 +27,9 @@
             {{--      </li>--}}
         </ul>
 
-        <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search" style="float:left;">
+        <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right"  method="GET" action="/blog/getList" role="search" style="float:left;">
             <div class="am-form-group">
-                <input type="text" class="am-form-field am-input-sm" placeholder="搜索博客">
+                <input type="text" name="keyWords" value="{{request()->get('keyWords')}}" class="am-form-field am-input-sm" placeholder="搜索博客">
             </div>
             <button type="submit" class="am-btn am-btn-default am-btn-sm glyphicon glyphicon-search"></button>
         </form>

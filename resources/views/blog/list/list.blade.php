@@ -31,7 +31,9 @@
     @endforeach
     <hr class="am-article-divider blog-hr">
     <ul class="am-pagination blog-pagination" style="float:right;">
+        @if(!empty($data))
         {{$paginate->render()}}
+        @endif
     </ul>
   </div>
 

@@ -620,4 +620,13 @@ class Article extends Model
         }
         return [$return,$data];
     }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * 关联文章内容表
+     */
+    public function getDetails() {
+        return $this->hasOne(ArticleDetails::class,'article_id','id');
+    }
 }

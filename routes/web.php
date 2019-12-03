@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//博客后台系统路由
 Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
     Route::get('getPublicKey','LoginController@getPublicKey');
 
@@ -118,6 +120,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
 
 
 
+//前台博客路由
 Route::group(['namespace'=>'Blog','prefix'=>'blog'],function() {
 
     Route::get('index','IndexController@index');
@@ -127,5 +130,6 @@ Route::group(['namespace'=>'Blog','prefix'=>'blog'],function() {
     Route::get('getCates','IndexController@getCates');
     Route::get('getListByTagId/{tagId}','ListController@getListByTagId');
     Route::get('getListByCateId/{cateId}','ListController@getListByCateId');
-    Route::get('getList/{keyWords}','ListController@getList');
+    Route::get('getList','ListController@getList');
+    Route::get('show/{articleId}','ArticleController@show');
 });

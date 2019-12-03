@@ -9,7 +9,6 @@ use App\Model\Link;
 use App\Model\Tags;
 use App\Tools\Loader;
 use App\Http\Controllers\Controller;
-use phpDocumentor\Reflection\DocBlock\Tag;
 
 /**
  * Class BaseController
@@ -46,11 +45,5 @@ class BaseController extends Controller {
         $this->linksModel = Loader::singleton(Link::class);
         $this->categotyModel = Loader::singleton(Category::class);
         $this->pageSize = \config('blog.blog.pageSize');
-    }
-
-
-    public function showCates() {
-        $cates = $this->categotyModel->getParentCate(5);
-        return view('/blog/list/list',compact('cates'));
     }
 }
