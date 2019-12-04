@@ -44,5 +44,9 @@ NbMfvh/CQJ4+Nu8dvQbHxj4=
 ',
 
         'pageSize' => 10
+    ],
+
+    "blog" => [
+        'pageSize' => 6
     ]
 ];

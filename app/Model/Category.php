@@ -169,4 +169,24 @@ class Category extends Model {
         }
         return $ids;
     }
+
+
+    /**
+     * @param int $limit
+     * @return array
+     * 获取父级分类
+     */
+    public function getParentCate($limit = 10) {
+        $return = [];
+        $cates = Category::where('pid',0)->orderBy('created_at','desc')->limit($limit)->get();
+        if(!empty($cates)) {
+            foreach ($cates ?? [] as $cate) {
+                $return[] = [
+                    'id' => $cate->id,
+                    'title' => $cate->title
+                ];
+            }
+        }
+        return $return;
+    }
 }
