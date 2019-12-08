@@ -11,7 +11,7 @@
     @foreach($data as $article)
         <article class="blog-main" style="height: 280px;">
           <h3 class="am-article-title blog-title">
-            <a href="#">{{$article['title']}}</a>
+            <a href="/blog/show/{{$article['id']}}">{{$article['title']}}</a>
           </h3>
           <h4 class="am-article-meta blog-meta"><span class="glyphicon glyphicon-user" style=""></span>&nbsp;作者：{{$article['author']}}</h4>
 

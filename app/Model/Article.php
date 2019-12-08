@@ -600,7 +600,7 @@ class Article extends Model
         $return = [];
         $data = Article::when(!empty($keyWords),function($query) use($keyWords) {
             return $query->where('title','like','%'.$keyWords.'%');
-        })->orderBy('created_at','desc')->paginate($pageSize);
+        })->orderBy('created_at','desc')->limit($pageSize)->get();
         if(!empty($data)) {
             foreach ($data ?? [] as $article) {
                 $return[] = [

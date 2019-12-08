@@ -5334,7 +5334,7 @@ Runner.prototype.runSuite = function(suite, fn) {
 Runner.prototype.uncaught = function(err) {
   if (err) {
     debug(
-      'uncaught exception %s',
+      'uncaught Exceptions %s',
       err ===
       function() {
         return this;
@@ -5343,7 +5343,7 @@ Runner.prototype.uncaught = function(err) {
         : err
     );
   } else {
-    debug('uncaught undefined exception');
+    debug('uncaught undefined Exceptions');
     err = undefinedError();
   }
   err.uncaught = true;
@@ -5487,7 +5487,7 @@ Runner.prototype.run = function(fn) {
     fn(self.failures);
   });
 
-  // uncaught exception
+  // uncaught Exceptions
   process.on('uncaughtException', uncaught);
 
   if (this._delay) {

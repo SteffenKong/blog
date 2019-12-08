@@ -18,7 +18,11 @@ function getTags() {
                 allAobj = '';
                 colorList = ['#FF5722','#FFB800','#2F4056','#01AAED','#1E9FFF','#009688','#393D49'];
                 for(var i = 0;i<resp.data.tags.length;i++) {
-                    let tagObj = '<a href="/blog/getListByTagId/'+resp.data.tags[i].id+'" class="tagCloud" style="background-color: '+colorList[i]+';">'+resp.data.tags[i].title+'</a>';
+                    var colorListIndex = Math.round(Math.random()*colorList.length);
+                    if(!colorList[colorListIndex]) {
+                        colorListIndex = 3;
+                    }
+                    let tagObj = '<a href="/blog/getListByTagId/'+resp.data.tags[i].id+'" class="tagCloud" style="background-color: '+colorList[colorListIndex]+';">'+resp.data.tags[i].title+'</a>';
                     allAobj += tagObj;
                 }
                 $("#tag").append(allAobj);
@@ -29,7 +33,7 @@ function getTags() {
     })
 }
 
-/**
+/**colorListIndex
  * 获取推荐文章
  */
 function getArticleByRec() {

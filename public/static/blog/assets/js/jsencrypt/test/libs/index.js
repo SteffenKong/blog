@@ -170,8 +170,8 @@
     var name = this.obj.name || 'fn';
     this.assert(
         thrown
-      , function(){ return 'expected ' + name + ' to throw an exception' }
-      , function(){ return 'expected ' + name + ' not to throw an exception' });
+      , function(){ return 'expected ' + name + ' to throw an Exceptions' }
+      , function(){ return 'expected ' + name + ' not to throw an Exceptions' });
   };
 
   /**

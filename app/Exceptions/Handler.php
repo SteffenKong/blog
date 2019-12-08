@@ -8,7 +8,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that are not reported.
+     * A list of the Exceptions types that are not reported.
      *
      * @var array
      */
@@ -27,7 +27,7 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Report or log an Exceptions.
      *
      * @param  \Exception  $exception
      * @return void
@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
+     * Render an Exceptions into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception

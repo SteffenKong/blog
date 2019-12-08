@@ -31,13 +31,9 @@
 
             <div class="am-form-group">
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">文章内容: </label>
-                <div class="col-sm-10">
-                    <div id="editor">
-                        <div class="content">
-                           {{$content}}
-                        </div>
+                    <div class="col-sm-10">
+                        <textarea id="container" name="content">{{$content}}</textarea>
                     </div>
-                </div>
             </div>
 
             <div class="am-form-group">
@@ -114,27 +110,28 @@
 
 @section('js')
     <!--wang编辑器文件-->
-    <script type="text/javascript" src="{{asset('/static/admin/assets/js/wangEditor/release/wangEditor.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/static/admin/assets/js/editor.js')}}"></script>
+{{--    <script type="text/javascript" src="{{asset('/static/admin/assets/js/wangEditor/release/wangEditor.js')}}"></script>--}}
+{{--    <script type="text/javascript" src="{{asset('/static/admin/assets/js/editor.js')}}"></script>--}}
+    <script type="text/javascript" src="{{asset('/static/admin/assets/js/ueditor/ueditor.config.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/static/admin/assets/js/ueditor/ueditor.all.js')}}"></script>
 
     <!--文件上传插件文件-->
     <script type="text/javascript" src="{{asset('/static/admin/assets/css/webuploader/webuploader.js')}}"></script>
     <script type="text/javascript" src="{{asset('/static/admin/assets/js/upload.js')}}"></script>
     <script type="text/javascript">
         $(function() {
+            var ue = UE.getEditor('container');
             $("#editBtn").click(function() {
                 //校验表单
                 var id = $("#id").val();
                 var title = $("#title").val();
                 var description = $("#description").val();
-                var content = $("#editor").text();
+                var content = ue.getContent();
                 var categoryId = $("select[name='categoryId']>option:selected").val();
                 var image = $("#image").val();
                 var status = $("input[name='status']:checked").val() == 1 ? 1 : 0;
                 var isHot = $("input[name='isHot']:checked").val() == 1 ? 1 : 0;
                 var isRec = $("input[name='isRec']:checked").val() == 1 ? 1 : 0;
-
-
                 //处理标签选择多个的情况
                 var tagIds=new Array();
                 $('input[name="tagId[]"]:checked').each(function(){

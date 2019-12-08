@@ -17,11 +17,13 @@ class ArticleController extends BaseController {
 
 
     /**
+     * @param int $articleId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * 详情页界面
      */
-    public function show() {
-        return view('/blog/article/show');
+    public function show(int $articleId) {
+        $cates = $this->categotyModel->getParentCate(5);
+        return view('/blog/article/article',compact("articleId","cates"));
     }
 
 
@@ -31,7 +33,7 @@ class ArticleController extends BaseController {
      * 获取文章详情数据
      */
     public function getArticle(int $articleId) {
-        $article = $this->articleModel::with('getDetails')->find($articleId);
+        $article = $this->articleModel::with('getDetails')->where('status',1)->find($articleId);
         $return = [];
         if(empty($article)) {
             return jsonPrint('001','获取失败',$return);

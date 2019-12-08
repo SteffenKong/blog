@@ -43,7 +43,6 @@ create table if not exists blog_category(
     updated_at datetime not null comment '编辑时间',
     primary key(id),
     unique key uk_title(title),
-    key idx_status(status),
     key idx_pid(pid)
 )charset=utf8,engine=innodb;
 

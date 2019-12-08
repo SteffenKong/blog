@@ -32,9 +32,7 @@
             <div class="am-form-group">
                 <label for="doc-ipt-3" class="col-sm-2 am-form-label">文章内容: </label>
                 <div class="col-sm-10">
-                    <div id="editor">
-
-                    </div>
+                    <textarea id="container" name="content"></textarea>
                 </div>
             </div>
 
@@ -62,12 +60,14 @@
             </div>
 
             <div class="am-form-group" style="clear:both;">
-                <label for="doc-ipt-3" class="col-sm-2 am-form-label">标签: </label>
+                <label for="doc-ipt-3" class="col-sm-2 am-form-label" style="width:100px;">标签: </label>
+                <div style="width:1000px;">
                 @foreach($allTags as $tag)
                     <label class="am-checkbox-inline">
                         <input type="checkbox"  class="tag" name="tagId[]" value="{{$tag['id']}}" style="height:20px; width:20px; margin-right:5px;"> {{$tag['title']}}
                     </label>
                 @endforeach
+                </div>
             </div>
 
             <div class="am-form-group">
@@ -103,19 +103,23 @@
 
 @section('js')
     <!--wang编辑器文件-->
-    <script type="text/javascript" src="{{asset('/static/admin/assets/js/wangEditor/release/wangEditor.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/static/admin/assets/js/editor.js')}}"></script>
+{{--    <script type="text/javascript" src="{{asset('/static/admin/assets/js/wangEditor/release/wangEditor.js')}}"></script>--}}
+{{--    <script type="text/javascript" src="{{asset('/static/admin/assets/js/editor.js')}}"></script>--}}
+        <script type="text/javascript" src="{{asset('/static/admin/assets/js/ueditor/ueditor.config.js')}}"></script>
+        <script type="text/javascript" src="{{asset('/static/admin/assets/js/ueditor/ueditor.all.js')}}"></script>
 
     <!--文件上传插件文件-->
     <script type="text/javascript" src="{{asset('/static/admin/assets/css/webuploader/webuploader.js')}}"></script>
     <script type="text/javascript" src="{{asset('/static/admin/assets/js/upload.js')}}"></script>
     <script type="text/javascript">
         $(function() {
+            var ue = UE.getEditor('container');
             $("#addBtn").click(function() {
+
                 //校验表单
                 var title = $("#title").val();
                 var description = $("#description").val();
-                var content = $("#editor").text();
+                var content = ue.getContent();
                 var categoryId = $("select[name='categoryId']>option:selected").val();
                 var image = $("#image").val();
                 var status = $("input[name='status']:checked").val() == 1 ? 1 : 0;

@@ -573,7 +573,7 @@ define("util.fastclick", [], function(require, exports, module) {
    */
     var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
     /**
-   * iOS 4 requires an exception for select elements.
+   * iOS 4 requires an Exceptions for select elements.
    *
    * @type boolean
    */
@@ -874,7 +874,7 @@ define("util.fastclick", [], function(require, exports, module) {
             }
         } else if (this.needsFocus(targetElement)) {
             // Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
-            // Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
+            // Case 2: Without this Exceptions for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
             if (event.timeStamp - trackingClickStart > 100 || deviceIsIOS && window.top !== window && targetTagName === "input") {
                 this.targetElement = null;
                 return false;
