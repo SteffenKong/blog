@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Tools\Loader;
+use App\Model\SystemSetting;
 use App\Events\SendLoginMessage;
 use App\Http\Requests\LoginRequest;
 use App\Events\LoginEvent;
@@ -18,7 +19,10 @@ use App\Http\Controllers\Controller;
 class LoginController extends Controller {
 
     public function login() {
-        return view('/admin/login/login');
+        /* @var SystemSetting $systemSetting*/
+        $systemSetting = Loader::singleton(SystemSetting::class);
+        $setting = $systemSetting->getSetting();
+        return view('/admin/login/login',compact('setting'));
     }
 
 

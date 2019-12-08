@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Exceptions\AdminException;
 use App\Model\Admin;
+use App\Model\SystemSetting;
 use App\Tools\Loader;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class BaseController
@@ -28,6 +30,7 @@ class BaseController extends Controller
     public function __construct() {
         $this->pageSize = \config('blog.pageSize');
         $this->adminModel = Loader::singleton(Admin::class);
+        $this->getSetting();
     }
 
 
@@ -75,5 +78,12 @@ class BaseController extends Controller
             throw new AdminException('管理员不存在!');
         }
         return $admin;
+    }
+
+    public function getSetting() {
+        /* @var SystemSetting $systemSetting*/
+        $systemSetting = Loader::singleton(SystemSetting::class);
+        $setting = $systemSetting->getSetting();
+        View::share('setting',$setting);
     }
 }

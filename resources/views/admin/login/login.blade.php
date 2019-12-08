@@ -44,10 +44,13 @@
             <br>
             <label for="password">密码:</label>
             <input type="password" name="password" id="password" value="">
-            <br>
-            <label for="captcha" style="float:left;">验证码:</label>
-            <input type="text" name="captcha" id="captcha" value="" style="width:200px; float:left; margin-left:20px;">
-            <img src="{{captcha_src('math')}}" id="captcha_img" style="float:left; margin-left:20px;" />
+
+            @if($setting['isCaptcha'] == 1)
+                <br>
+                <label for="captcha" style="float:left;">验证码:</label>
+                <input type="text" name="captcha" id="captcha" value="" style="width:200px; float:left; margin-left:20px;">
+                <img src="{{captcha_src('math')}}" id="captcha_img" style="float:left; margin-left:20px;" />
+            @endif
             <br>
             <div style="height:50px;">
 

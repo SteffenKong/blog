@@ -111,6 +111,13 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::delete('delete/{id}','BannerController@delete');
         });
 
+
+        //后台设置
+        Route::group(['prefix'=>'SystemSetting'],function() {
+            Route::get('index','SystemSettingController@settingView')->name('/SystemSetting/settingView');
+            Route::put('setting','SystemSettingController@setting');
+        });
+
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });

@@ -153,3 +153,13 @@ create table if not exists blog_banner(
     unique key uk_title (title),
     key idx_status (status)
 )charset=utf8,engine=innodb;
+
+-- 系统配置表
+create table if not exists blog_system_setting(
+    id mediumint unsigned not null auto_increment,
+    site_name varchar(191) not null comment '网站名称',
+    is_captcha tinyint default 1 not null comment '是否开启验证码',
+    created_at datetime not null comment '添加时间',
+    updated_at datetime not null  comment '编辑时间',
+    primary key(id)
+)charset=utf8,engine=innodb;

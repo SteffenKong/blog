@@ -1,6 +1,7 @@
 <header class="am-topbar admin-header" style="background-color:black; color:white;">
     <div class="am-topbar-brand">
-        <strong>Steffen孔 博客后台管理系统</small>
+        <strong>{{$setting['siteName']}}</strong>
+{{--        <strong>Steffen孔 博客后台管理系统</strong>--}}
     </div>
 
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>

@@ -5,7 +5,7 @@
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="glyphicon glyphicon-user"></span> 管理员模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
             <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+{{--                <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>--}}
                 <li><a href="{{route('/admin/index')}}"><span class="glyphicon glyphicon-user"></span> 管理员列表</a></li>
             </ul>
         </li>
@@ -36,9 +36,9 @@
         </li>
 
         <li class="tags-parent">
-            <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="glyphicon glyphicon-wrench"></span> 后台设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="glyphicon glyphicon-wrench"></span> 系统设置 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
             <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-                <li><a href="{{route('/link/index')}}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;后台配置</a></li>
+                <li><a href="{{route('/SystemSetting/settingView')}}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;后台配置</a></li>
                 <li><a href="{{route('/link/index')}}"><span class="glyphicon glyphicon-hdd"></span>&nbsp;队列管理</a></li>
                 <li><a href="{{route('/link/index')}}"><span class="glyphicon glyphicon-wrench"></span>&nbsp;开发者工具</a></li>
             </ul>
