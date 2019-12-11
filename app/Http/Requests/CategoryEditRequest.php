@@ -20,7 +20,7 @@ class CategoryEditRequest extends BaseRequest
         return [
             'id' => 'required|numeric',
             'title' => 'required',
-            'description' => 'max:150',
+            'description' => 'required|max:150',
             'pid' => 'required|numeric',
         ];
     }
@@ -32,6 +32,7 @@ class CategoryEditRequest extends BaseRequest
             'id.numeric' => 'id类型异常',
             'id.notIn' => 'id不能为0',
             'title.required' => '请填写分类名称',
+            'description.required' => '请填写分类描述',
             'description.max' => '分类描述最多填写150个字符',
             'pid.required' => '请选择所属分类',
             'pid.numeric' => '所属分类取值异常'

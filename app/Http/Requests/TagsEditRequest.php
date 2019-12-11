@@ -20,7 +20,7 @@ class TagsEditRequest extends BaseRequest
         return [
             'id'=>'required|numeric|notIn:0',
             'title' => 'required',
-            'description' => 'max:150',
+            'description' => 'required|max:150',
             'status' => 'in:0,1'
         ];
     }
@@ -35,6 +35,7 @@ class TagsEditRequest extends BaseRequest
             'id.numeric' => 'id类型异常',
             'id.notIn' => 'id不能为0',
             'title.required' => '请填写标签名称',
+            'description.required' => '请填写标签描述',
             'description.max' => '标签描述不能超过150个字符',
             'status.in' => '标签状态取值异常'
         ];

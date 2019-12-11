@@ -19,7 +19,7 @@ class CategoryAddRequest extends BaseRequest
     {
         return [
             'title' => 'required|unique:category',
-            'description' => 'max:150',
+            'description' => 'required|max:150',
             'pid' => 'required|numeric',
         ];
     }
@@ -29,6 +29,7 @@ class CategoryAddRequest extends BaseRequest
        return [
             'title.required' => '请填写分类名称',
             'title.unique' => '分类名称已存在',
+            'description.required' => '请填写分类描述',
             'description.max' => '分类描述最多填写150个字符',
             'pid.required' => '请选择所属分类',
             'pid.numeric' => '所属分类取值异常'

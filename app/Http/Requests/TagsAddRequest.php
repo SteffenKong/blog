@@ -19,7 +19,7 @@ class TagsAddRequest extends BaseRequest
     {
         return [
             'title' => 'required|unique:tags',
-            'description' => 'max:150',
+            'description' => 'required|max:150',
             'status' => 'in:0,1'
         ];
     }
@@ -32,6 +32,7 @@ class TagsAddRequest extends BaseRequest
         return [
             'title.required' => '请填写标签名称',
             'title.unique' => '标签名称已存在',
+            'description.required' => '请填写标签描述',
             'description.max' => '标签描述不能超过150个字符',
             'status.in' => '标签状态取值异常'
         ];
