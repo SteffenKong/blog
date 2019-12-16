@@ -6,6 +6,7 @@ use MongoDB\Driver\WriteConcern;
 use MongoDB\Driver\BulkWrite;
 use MongoDB\Driver\Query;
 
+
 /**
  * Class MongoDB
  */
@@ -18,19 +19,9 @@ final class MongoDB {
     protected $collection;
     protected $query;
     protected $timeOut = 1000;
-    private static $instance = null;
 
-
-    /**
-     * @param array $config
-     * @return MongoDB|null
-     * @throws Exception
-     */
-    public static function instance(array $config) {
-        return self::$instance ?? new self($config);
-    }
-
-    private function __construct(array $config) {
+    public function __construct() {
+        $config = config('MongoDB');
         $this->db = $config['db'] ?? '';
         $this->mongodb = $this->connectMongo($config);
     }
@@ -46,6 +37,7 @@ final class MongoDB {
         if (!$config['userName'] || !$config['password']) {
             $url = "mongodb://{$config['host']}:{$config['port']}";
         }
+
         return new Manager($url);
     }
 
@@ -78,7 +70,7 @@ final class MongoDB {
      */
     public function insert(array $documents,$table){
         $this->bulk = new BulkWrite();
-        $this->writeConcern = new WriteConcern(WriteConcern::MAJORITY,$this->timeOut);
+        $this->writeConcern = new WriteConcern(WriteConcern::MAJORITY,$this->timeOut,true);
         $this->bulk->insert($documents);
         return $this->mongodb->executeBulkWrite($this->db.'.'.$table,$this->bulk,$this->writeConcern);
     }
@@ -94,7 +86,7 @@ final class MongoDB {
      */
     public function update($filter,$documents,$table) {
         $this->bulk = new BulkWrite();
-        $this->writeConcern = new WriteConcern(WriteConcern::MAJORITY,$this->timeOut);
+        $this->writeConcern = new WriteConcern(WriteConcern::MAJORITY,$this->timeOut,true);
         $this->bulk->update($filter,$documents);
         return $this->mongodb->executeBulkWrite($this->db.'.'.$table,$this->bulk,$this->writeConcern);
     }
@@ -109,7 +101,7 @@ final class MongoDB {
      */
     public function delete($filter,array $option ,$table) {
         $this->bulk = new BulkWrite();
-        $this->writeConcern = new WriteConcern(WriteConcern::MAJORITY,$this->timeOut);
+        $this->writeConcern = new WriteConcern(WriteConcern::MAJORITY,$this->timeOut,true);
         $this->bulk->delete($filter,$option);
         return $this->mongodb->executeBulkWrite($this->db.'.'.$table,$this->bulk,$this->writeConcern);
     }
@@ -123,17 +115,4 @@ final class MongoDB {
         unset($this->query);
         unset($this->writeConcern);
     }
-
-    /**
-     * 防克隆
-     */
-    private function __clone() {}
 }
-
-//$mongoDB = MongoDB::instance([
-//    'host' => '192.168.150.133',
-//    'userName' => '',
-//    'password' => '',
-//    'port' => 27017,
-//    'db' => 'php'
-//]);

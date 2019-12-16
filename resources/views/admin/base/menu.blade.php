@@ -21,9 +21,8 @@
         <li class="tags-parent">
             <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span> 日志管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
             <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
-                <li><a href="{{route('/tags/index')}}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;登录日志</a></li>
-                <li><a href="{{route('/tags/index')}}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;操作日志</a></li>
-                <li><a href="{{route('/tags/index')}}"><span class="glyphicon glyphicon-header"></span>&nbsp;IP地址列表</a></li>
+                <li><a href="{{route('/LoginLog/index')}}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;登录日志</a></li>
+                <li><a href="{{route('/AdminLog/index')}}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;操作日志</a></li>
             </ul>
         </li>
 

@@ -187,4 +187,23 @@ class Tags extends Model {
         }
         return $return;
     }
+
+
+    /**
+     * @param $limit
+     * @return array
+     */
+    public function getTagByLimit($limit) {
+        $return = [];
+        $data = Tags::where('status',1)->orderBy('created_at','desc')->limit($limit)->get();
+        if(!empty($data)) {
+            foreach ($data ?? [] as $tag) {
+                $return[] = [
+                    'id' => $tag->id,
+                    'title' => $tag->title,
+                ];
+            }
+        }
+        return $return;
+    }
 }

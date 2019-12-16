@@ -4,5 +4,5 @@ return [
     'userName' => '',
     'password' => '',
     'port' => 27017,
-    'db' => 'php'
+    'db' => 'blog'
 ];

@@ -148,4 +148,23 @@ class Banner extends Model {
     public function checkTitleIsExistsExcepId($id,$title) {
         return Banner::where('id','!=',$id)->where('title',$title)->count();
     }
+
+
+    /**
+     * @param int $limit
+     * @return mixed
+     */
+    public function getLimitByIndex($limit = 3) {
+        $return = [];
+        $data =  Banner::where('status',1)->limit($limit)->get(['id','image']);
+        if (!empty($data)) {
+            foreach ($data ?? [] as $banner) {
+                $return[] = [
+                    'id' => $banner->id,
+                    'image' => $banner->image
+                ];
+            }
+        }
+        return $return;
+    }
 }

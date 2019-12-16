@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Model\Tags;
 use Illuminate\Http\Request;
 
 /**
@@ -22,8 +23,7 @@ class IndexController extends BaseController {
     public function index() {
         //获取前10篇比较热的文章
         list($articles,$paginate) = $this->articleModel->getArticleByHot(10);
-        $cates = $this->categotyModel->getParentCate(5);
-        return view('/blog/index/blog',compact('articles','paginate','cates'));
+        return view('/blog/index/index',compact('articles','paginate'));
     }
 
 
@@ -56,7 +56,7 @@ class IndexController extends BaseController {
      * 获取友情链接
      */
     public function getLinks() {
-        $links = $this->linksModel->getLinkByLimit(6);
+        $links = $this-> linksModel->getLinkByLimit(6);
         return jsonPrint('000','获取成功',['links' => $links]);
     }
 
@@ -66,7 +66,28 @@ class IndexController extends BaseController {
      * 获取父级分类
      */
     public function getCates() {
-        $cates = $this->categotyModel->getParentCate(10);
+        $cates = $this->categotyModel->getCate(10);
         return jsonPrint('000','获取成功',['cates' => $cates]);
+    }
+
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * 获取首页banner
+     */
+    public function getBanner() {
+        $banners = $this->bannerModel->getLimitByIndex(3);
+        return jsonPrint('000','获取成功',['banner' => $banners]);
+    }
+
+
+    /**
+     * @param int $limit
+     * @return \Illuminate\Http\JsonResponse
+     * 获取前三个标签
+     */
+    public function getTagByIndex() {
+        $tags = $this->tagsModel->getTagByLimit(5);
+        return jsonPrint('000','获取成功',['tag' => $tags]);
     }
 }

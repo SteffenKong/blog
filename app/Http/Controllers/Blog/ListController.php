@@ -22,8 +22,7 @@ class ListController extends BaseController {
      */
     public function getListByCateId(int $cateId = -1) {
         list($data,$paginate) = $this->articleModel->getListByCateId($this->pageSize,$cateId);
-        $cates = $this->categotyModel->getParentCate(5);
-        return view('/blog/list/list',compact('data','paginate','cates'));
+        return view('/blog/list/list',compact('data','paginate'));
     }
 
 
@@ -34,8 +33,7 @@ class ListController extends BaseController {
      */
     public function getListByTagId(int $tagId = -1) {
         list($data,$paginate) = $this->articleModel->getListByTagId($this->pageSize,$tagId);
-        $cates = $this->categotyModel->getParentCate(5);
-        return view('/blog/list/list',compact('data','paginate','cates'));
+        return view('/blog/list/list',compact('data','paginate'));
     }
 
 
@@ -45,9 +43,8 @@ class ListController extends BaseController {
      * 列表页
      */
     public function getList(Request $request) {
-        $keyWords = $request->get('keyWords','');
+        $keyWords = $request->get('keyword','');
         list($data,$paginate) = $this->articleModel->getListByBlog($this->pageSize,$keyWords);
-        $cates = $this->categotyModel->getParentCate(5);
-        return view('/blog/list/list',compact('data','paginate','cates'));
+        return view('/blog/list/list',compact('data','paginate'));
     }
 }

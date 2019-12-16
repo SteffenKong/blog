@@ -495,7 +495,7 @@ class Article extends Model
     public function getArticleByRec($limit = 6)
     {
         $return = [];
-        $data = Article::where('is_rec', 1)->where('is_hot', 1)->where('status', 1)->orderBy('view_number', 'desc')->orderBy('created_at', 'desc')->limit($limit)->get(['title', 'view_number']);
+        $data = Article::where('is_rec', 1)->where('is_hot', 1)->where('status', 1)->orderBy('view_number', 'desc')->orderBy('created_at', 'desc')->limit($limit)->get();
         if (!empty($data)) {
             foreach ($data ?? [] as $article) {
                 $return[] = [
@@ -600,7 +600,7 @@ class Article extends Model
         $return = [];
         $data = Article::when(!empty($keyWords),function($query) use($keyWords) {
             return $query->where('title','like','%'.$keyWords.'%');
-        })->orderBy('created_at','desc')->limit($pageSize)->get();
+        })->orderBy('created_at','desc')->paginate($pageSize);
         if(!empty($data)) {
             foreach ($data ?? [] as $article) {
                 $return[] = [

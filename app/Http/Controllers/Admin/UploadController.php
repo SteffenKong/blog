@@ -32,7 +32,7 @@ class UploadController extends BaseController {
             //构造文件名
             $fileName = uniqid('img_',true).'.'.$ext;
 
-            //读取public的存储配置，读取临时上次的文件然后写到$fileName中即可,这样就实现了文件上次
+            //读取public的存储配置，读取临时上次的文件然后写到$fileName中即可,这样就实现了文件上传
             $res = Storage::disk('public')->put($fileName,file_get_contents($path));
 
             if(!$res) {

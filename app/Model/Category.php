@@ -176,9 +176,9 @@ class Category extends Model {
      * @return array
      * 获取父级分类
      */
-    public function getParentCate($limit = 10) {
+    public function getCate($limit = 10) {
         $return = [];
-        $cates = Category::where('pid',0)->orderBy('created_at','desc')->limit($limit)->get();
+        $cates = Category::orderBy('created_at','desc')->limit($limit)->get();
         if(!empty($cates)) {
             foreach ($cates ?? [] as $cate) {
                 $return[] = [

@@ -23,11 +23,11 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
     //登录页
     Route::group(['middleware' => ['IsLogin']],function() {
         Route::get('login','LoginController@login');
-        Route::post('sign','LoginController@sign');
+        Route::post('sign','LoginController@sign')->middleware(['LoginLog']);
     });
 
-    Route::get('logout','IndexController@logout')->name('logout');
-    Route::group(['middleware'=>['CheckLogin']],function() {
+    Route::group(['middleware'=>['CheckLogin','AdminLog']],function() {
+        Route::get('logout','IndexController@logout')->name('logout');
         Route::get('index','IndexController@index')->name('index');
 
         //管理员模块
@@ -118,6 +118,16 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
             Route::put('setting','SystemSettingController@setting');
         });
 
+        //管理员操作日志模块
+        Route::group(['prefix' => 'AdminLog'],function() {
+            Route::get('index','AdminLogController@index')->name('/AdminLog/index');
+        });
+
+        //登录日志模块
+        Route::group(['prefix' => 'LoginLog'],function() {
+            Route::get('index','LoginLogController@index')->name('/LoginLog/index');
+        });
+
         //文件上传功能
         Route::post('/uploadFile','UploadController@uploadFile');
     });
@@ -131,6 +141,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function() {
 Route::group(['namespace'=>'Blog','prefix'=>'blog'],function() {
 
     Route::get('index','IndexController@index');
+    Route::get('getBanner','IndexController@getBanner');
+    Route::get('getTagByIndex','IndexController@getTagByIndex');
     Route::get('getTagsCloud','IndexController@getTagsCloud');
     Route::get('getRec','IndexController@getRecArticleTitle');
     Route::get('getLinks','IndexController@getLinks');

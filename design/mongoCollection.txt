@@ -1,0 +1,4 @@
+use blog
+
+db.createCollection('loginLog')
+db.createCollection('adminLog')
