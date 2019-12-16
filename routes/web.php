@@ -151,5 +151,4 @@ Route::group(['namespace'=>'Blog','prefix'=>'blog'],function() {
     Route::get('getListByCateId/{cateId}','ListController@getListByCateId');
     Route::get('getList','ListController@getList');
     Route::get('show/{articleId}','ArticleController@show');
-    Route::get('getArticle/{articleId}','ArticleController@getArticle');
 });

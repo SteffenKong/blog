@@ -1,171 +1,107 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    @include("/blog/Base/meta")
-    <style>
-        @media only screen and (min-width: 641px) {
-            .am-offcanvas {
-                display: block;
-                position: static;
-                background: none;
-            }
-
-            .am-offcanvas-bar {
-                position: static;
-                width: auto;
-                background: none;
-                -webkit-transform: translate3d(0, 0, 0);
-                -ms-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-            .am-offcanvas-bar:after {
-                content: none;
-            }
-
-        }
-
-        @media only screen and (max-width: 640px) {
-            .am-offcanvas-bar .am-nav>li>a {
-                color:#ccc;
-                border-radius: 0;
-                border-top: 1px solid rgba(0,0,0,.3);
-                box-shadow: inset 0 1px 0 rgba(255,255,255,.05)
-            }
-
-            .am-offcanvas-bar .am-nav>li>a:hover {
-                background: #404040;
-                color: #fff
-            }
-
-            .am-offcanvas-bar .am-nav>li.am-nav-header {
-                color: #777;
-                background: #404040;
-                box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
-                text-shadow: 0 1px 0 rgba(0,0,0,.5);
-                border-top: 1px solid rgba(0,0,0,.3);
-                font-weight: 400;
-                font-size: 75%
-            }
-
-            .am-offcanvas-bar .am-nav>li.am-active>a {
-                background: #1a1a1a;
-                color: #fff;
-                box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
-            }
-
-            .am-offcanvas-bar .am-nav>li+li {
-                margin-top: 0;
-            }
-        }
-
-        .my-head {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .my-button {
-            position: fixed;
-            top: 0;
-            right: 0;
-            border-radius: 0;
-        }
-        .my-sidebar {
-            padding-right: 0;
-            border-right: 1px solid #eeeeee;
-        }
-
-        .my-footer {
-            border-top: 1px solid #eeeeee;
-            padding: 10px 0;
-            margin-top: 10px;
-            text-align: center;
-        }
-    </style>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    @include('blog.Base.meta')
 </head>
 
-{{--header部分--}}
-@include("/blog/Base/header")
-<div data-id="{{$articleId}}" id="articleId">
-
-</div>
-<header class="am-g my-head">
-    <div class="col-sm-12 am-article">
-        <h1 class="am-article-title"></h1>
-        <p class="am-article-meta" id="author"></p>
-    </div>
+<body class="user-select single">
+<header class="header">
+    @include('blog.Base.header')
 </header>
-<hr class="am-article-divider"/>
-<div class="am-g am-g-fixed">
-    <div class="col-md-9 col-md-push-3">
-        <div class="am-g">
-            <div class="col-sm-11 col-sm-centered">
-                <div class="am-cf am-article">
-                    <div>
-                        <img id="image" src="" alt="" width="700" height="70">
-                    </div>
-                    <h2>文章简介</h2>
-                    <p id="description"></p>
-                    <hr class="am-article-divider">
-                    <h2>文章内容</h2>
-                    <div id="article">
-                        <p>
-
-                        </p>
-                    </div>
-                </div>
-                <hr/>
-                <ul class="am-comments-list">
-                    <li class="am-comment">
-                        <a href="#link-to-user-home">
-                            <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48">
-                        </a>
-                        <div class="am-comment-main">
-                            <header class="am-comment-hd">
-                                <div class="am-comment-meta">
-                                    <a href="#link-to-user" class="am-comment-author">某人</a> 评论于 <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800">2014-7-12 15:30</time>
-                                </div>
-                            </header>
-                            <div class="am-comment-bd">
-                                <p>《永远的蝴蝶》一文，还吸收散文特长，多采用第一人称，淡化情节，体现一种思想寄托和艺术追求。</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="am-comment">
-                        <a href="#link-to-user-home">
-                            <img src="http://www.gravatar.com/avatar/1ecedeede84a44f371b9d8d656bb4265?d=mm&amp;s=96" alt="" class="am-comment-avatar" width="48" height="48">
-                        </a>
-                        <div class="am-comment-main">
-                            <header class="am-comment-hd">
-                                <div class="am-comment-meta">
-                                    <a href="#link-to-user" class="am-comment-author">路人甲</a> 评论于 <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800">2014-7-13 0:03</time>
-                                </div>
-                            </header>
-                            <div class="am-comment-bd">
-                                <p>感觉仿佛是自身的遭遇一样，催人泪下</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+<section class="container">
+  <div class="content-wrap">
+    <div class="content">
+      <header class="article-header">
+        <h1 class="article-title"><a href="article.html">{{$return['title']}}</a></h1>
+        <div class="article-meta"> <span class="item article-meta-time">
+          <time class="time" data-toggle="tooltip" data-placement="bottom" title="时间：{{$return['createdAt']}}"><i class="glyphicon glyphicon-time"></i> {{$return['createdAt']}}</time>
+          </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="作者：{{$return['author']}}"><i class="glyphicon glyphicon-globe"></i> {{$return['author']}}</span> <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="栏目：暂定"><i class="glyphicon glyphicon-list"></i> <a href="program" title="">暂定</a></span> <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="查看：120"><i class="glyphicon glyphicon-eye-open"></i> {{$return['viewNumber']}}</span> <span class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom" title="评论：0"></span> </div>
+      </header>
+      <article class="article-content">
+        <p><img data-original="{{$return['smallImage']}}" src="{{$return['smallImage']}}" alt="" /></p>
+          {!!$return['content']  !!}
+        <p class="article-copyright hidden-xs">未经允许不得转载：<a href="">Steffen 孔博客</a> » <a href="article.html">{{$return['title']}}</a></p>
+      </article>
+      <div class="article-tags">标签：<a href="" rel="tag">PHP</a></div>
+      <div class="relates">
+        <div class="title">
+          <h3>相关推荐</h3>
         </div>
-    </div>
-    <div class="col-md-3 col-md-pull-9 my-sidebar">
-        <div class="am-offcanvas" id="sidebar">
-            <div class="am-offcanvas-bar">
-                <ul class="am-nav">
-                    <li><a href="#" id="title" ></a></li>
-                    <li class="am-nav-header">目录</li>
-                    <li><a href="#">文章简介</a></li>
-                    <li><a href="#">原文</a></li>
-                </ul>
-            </div>
+        <ul>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+          <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+        </ul>
+      </div>
+      <div class="title" id="comment">
+        <h3>评论 <small>抢沙发</small></h3>
+      </div>
+      <!--<div id="respond">
+        <div class="comment-signarea">
+          <h3 class="text-muted">评论前必须登录！</h3>
+          <p> <a href="javascript:;" class="btn btn-primary login" rel="nofollow">立即登录</a> &nbsp; <a href="javascript:;" class="btn btn-default register" rel="nofollow">注册</a> </p>
+          <h3 class="text-muted">当前文章禁止评论</h3>
         </div>
-    </div>
-{{--    <a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>--}}
-</div>
+      </div>-->
+      <div id="respond">
+        <form action="" method="post" id="comment-form">
+          <div class="comment">
+            <div class="comment-title"><img class="avatar" src="images/icon/icon.png" alt="" /></div>
+            <div class="comment-box">
+              <textarea placeholder="您的评论可以一针见血" name="comment" id="comment-textarea" cols="100%" rows="3" tabindex="1" ></textarea>
+              <div class="comment-ctrl"> <span class="emotion"><img src="images/face/5.png" width="20" height="20" alt="" />表情</span>
+                <div class="comment-prompt"> <i class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text"></span> </div>
+                <input type="hidden" value="1" class="articleid" />
+                <button type="submit" name="comment-submit" id="comment-submit" tabindex="5" articleid="1">评论</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="postcomments">
+        <ol class="commentlist">
+          <li class="comment-content"><span class="comment-f">#1</span>
+            <div class="comment-avatar"><img class="avatar" src="images/icon/icon.png" alt="" /></div>
+            <div class="comment-main">
+              <p>来自<span class="address">河南郑州</span>的用户<span class="time">(2016-01-06)</span><br />
+                这是匿名评论的内容这是匿名评论的内容，这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容这是匿名评论的内容。</p>
+            </div>
+          </li>
+        </ol>
 
-<footer class="blog-footer">
-    <small>© Copyright SteffenKong</small>
+        <div class="quotes"><span class="disabled">首页</span><span class="disabled">上一页</span><a class="current">1</a><a href="">2</a><span class="disabled">下一页</span><span class="disabled">尾页</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <div class="fixed">
+        @include("blog.Base.aside")
+    </div>
+  </aside>
+</section>
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2016 <a href="">ylsat.com</a> &nbsp; <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">豫ICP备20151109-1</a> &nbsp; <a href="sitemap.xml" target="_blank" class="sitemap">网站地图</a></p>
+  </div>
+  <div id="gotop"><a class="gotop"></a></div>
 </footer>
 
-<script type="text/javascript" src="{{asset('/static/blog/assets/js/article.js')}}"></script>
+@include('blog.Base.footer')
+<script src="{{asset('/static/blog')}}/js/jquery.qqFace.js"></script>
+<script src="{{asset('/static/blog')}}/index.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.emotion').qqFace({
+		id : 'facebox',
+		assign:'comment-textarea',
+		path:'images/arclist/'	//表情存放的路径
+	});
+ });
+</script>
+</body>
+</html>

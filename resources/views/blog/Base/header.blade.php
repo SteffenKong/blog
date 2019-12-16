@@ -8,16 +8,16 @@
                     <li><a href="links.html" rel="nofollow">友情链接</a></li>
                     <!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" rel="nofollow">关注本站 <span class="caret"></span></a> -->
                     <ul class="dropdown-menu header-topbar-dropdown-menu">
-                        <li><a data-toggle="modal" data-target="#WeChat" rel="nofollow"><i class="fa fa-weixin"></i> 微信</a></li>
-                        <li><a href="#" rel="nofollow"><i class="fa fa-weibo"></i> 微博</a></li>
-                        <li><a data-toggle="modal" data-target="#areDeveloping" rel="nofollow"><i class="fa fa-rss"></i> RSS</a></li>
+{{--                        <li><a data-toggle="modal" data-target="#WeChat" rel="nofollow"><i class="fa fa-weixin"></i> 微信</a></li>--}}
+{{--                        <li><a href="#" rel="nofollow"><i class="fa fa-weibo"></i> 微博</a></li>--}}
+{{--                        <li><a data-toggle="modal" data-target="#areDeveloping" rel="nofollow"><i class="fa fa-rss"></i> RSS</a></li>--}}
                     </ul>
                     </li>
                 </ul>
 {{--                <a data-toggle="modal" data-target="#loginModal" class="login" rel="nofollow">Hi,请登录</a>&nbsp;&nbsp;<a href="javascript:;" class="register" rel="nofollow">我要注册</a>&nbsp;&nbsp;<a href="" rel="nofollow">找回密码</a> </div>--}}
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <h1 class="logo hvr-bounce-in"><a href="" title=""><img src="{{asset('/static/blog')}}/images/logo.png" alt=""></a></h1>
+                <h1 class="logo hvr-bounce-in" style="margin-top:20px;"><a href="/blog/index" style="color:#3399CC;" title="">Steffen孔博客</a></h1>
             </div>
             <div class="collapse navbar-collapse" id="header-navbar">
                 <ul class="nav navbar-nav navbar-right">

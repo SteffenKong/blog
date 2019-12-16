@@ -41,9 +41,9 @@
         <div class="more"></div>
       </div>
         @foreach($articles as $article)
-          <article class="excerpt excerpt-1"><a class="focus" href="article.html" title=""><img class="thumb" data-original="images/excerpt.jpg" src="{{$article['smallImage']}}" alt=""></a>
+          <article class="excerpt excerpt-1"><a class="focus" href="/blog/show/{{$article['id']}}" title=""><img class="thumb" data-original="images/excerpt.jpg" src="{{$article['smallImage']}}" alt=""></a>
             <header><a class="cat" href="program">暂定<i></i></a>
-              <h2><a href="article.html" title="">{{$article['title']}}</a></h2>
+              <h2><a href="/blog/show/{{$article['id']}}" title="">{{$article['title']}}</a></h2>
             </header>
             <p class="meta">
               <time class="time"><i class="glyphicon glyphicon-time"></i> {{$article['createdAt']}}</time>

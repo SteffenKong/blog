@@ -98,10 +98,9 @@ function getArticleByRec() {
         dataType:'Json',
         type:'GET',
         success:function(resp) {
-            if(resp.status == '000')    {
-                console.log(resp.data)
+            if(resp.status ==='000') {
                 for(var i = 0;i<resp.data.articles.length;i++) {
-                    let liObj = '<li><a href=""><span class="thumbnail"><img class="thumb" data-original="'+resp.data.articles[i].smallImage+'" src="'+resp.data.articles[i].smallImage+'" alt=""> </span><span class="text">'+resp.data.articles[i].title+'</span><span class="muted"><i class="glyphicon glyphicon-time"></i>'+resp.data.articles[i].createdAt+'</span><span class="muted"> <i class="glyphicon glyphicon-eye-open"></i> '+resp.data.articles[i].viewNumber+'</span></a></li>';
+                    let liObj = '<li><a href="/blog/show/'+resp.data.articles[i].id+'"><span class="thumbnail"><img class="thumb" data-original="'+resp.data.articles[i].smallImage+'" src="'+resp.data.articles[i].smallImage+'" alt=""> </span><span class="text">'+resp.data.articles[i].title+'</span><span class="muted"><i class="glyphicon glyphicon-time"></i>'+resp.data.articles[i].createdAt+'</span><span class="muted"> <i class="glyphicon glyphicon-eye-open"></i> '+resp.data.articles[i].viewNumber+'</span></a></li>';
                     $(".rec").append(liObj);
                 }
             }else {

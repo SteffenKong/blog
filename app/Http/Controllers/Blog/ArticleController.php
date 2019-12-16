@@ -22,23 +22,11 @@ class ArticleController extends BaseController {
      * 详情页界面
      */
     public function show(int $articleId) {
-        $cates = $this->categotyModel->getParentCate(5);
-        return view('/blog/article/article',compact("articleId","cates"));
-    }
-
-
-    /**
-     * @param int $articleId
-     * @return \Illuminate\Http\JsonResponse
-     * 获取文章详情数据
-     */
-    public function getArticle(int $articleId) {
         $article = $this->articleModel::with('getDetails')->where('status',1)->find($articleId);
         $return = [];
         if(empty($article)) {
-            return jsonPrint('001','获取失败',$return);
+            throw new \Exception('文章不存在!');
         }
-
         $return = [
             'id' => $article->id,
             'title' => $article->title,
@@ -53,7 +41,6 @@ class ArticleController extends BaseController {
             'createdAt' => $article->created_at,
             'updatedAt' => $article->updated_at
         ];
-
-        return jsonPrint('000','获取成功',$return);
+        return view('/blog/article/article',compact("articleId",'return'));
     }
 }
