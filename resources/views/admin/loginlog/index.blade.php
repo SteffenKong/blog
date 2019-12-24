@@ -50,31 +50,31 @@
                     <table class="am-table am-table-striped am-table-hover table-main">
                         <thead>
                         <tr>
-                           <th class="table-id">账号</th>
-                            <th class="table-title">路由</th>
+                            <th class="table-title">账号</th>
                             <th class="table-type">IP地址</th>
                             <th class="table-type">请求方法</th>
-                            <th class="table-date">请求参数</th>
                             <th class="table-date">添加日期</th>
+                            <th class="table-date">操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($data as $log)
                         <tr>
                             <td>{{$log['account']}}</td>
-                            <td>{{$log['router']}}</td>
                             <td>{{$log['ip']}}</td>
-                            <td>{{$log['method']}}</td>
                             <td><a href="#" data-log="{{$log['params']}}">查看参数</a></td>
                             <td>{{$log['createdAt']}}</td>
+                            <td><a href="#">删除</a></td>
                         </tr>
                         @endforeach
                         </tbody>
                     </table>
                     <div class="am-cf">
-{{--                        共 {{$paginate->count()}} 条记录--}}
+                        共 {{$count}} 条记录
                         <div class="am-fr">
-
+                            @if($count > $pageSize)
+                            {!! $page !!}
+                            @endif
                         </div>
                     </div>
                     <hr />
@@ -89,83 +89,6 @@
 @section('js')
     <script type="text/javascript">
 
-        //全局csrf token
-        $.ajaxSetup({
-            headers: { 'X-CSRF-TOKEN' : $("meta[name='x-csrf-token']").attr('content') }
-        });
 
-
-        /**
-         * 更改状态
-         * */
-        $(".status").click(function() {
-            var id = $(this).attr("data-id");
-            var thisObj = $(this);
-
-            $.ajax({
-                url:'/admin/banner/changeStatus/'+id,
-                data:null,
-                dataType:'Json',
-                type:'POST',
-                success:function(resp) {
-                    if(resp.status === '000') {
-                        layer.msg(resp.message,{icon:1});
-                        var classStyle = '';
-                        var text = '';
-                        if(thisObj.attr('class') == 'am-btn  am-btn-secondary status') {
-                            classStyle = 'am-btn am-btn-danger status';
-                            text = '禁用';
-                        }else {
-                            classStyle = 'am-btn  am-btn-secondary status';
-                            text = '启用';
-                        }
-                        thisObj.attr('class','');
-                        thisObj.attr('class',classStyle);
-                        thisObj.text(text);
-                    }else {
-                        layer.msg(resp.message,{icon:2});
-                    }
-                }
-            });
-        });
-
-        /**
-         * 删除操作
-         */
-        $(".del").click(function() {
-            var id = $(this).attr('data-id');
-            var thisObj = $(this);
-            $.ajax({
-                url:'/admin/banner/delete/'+id,
-                data:null,
-                dataType:'Json',
-                type:'delete',
-                success:function(resp) {
-                    if(resp.status === '000') {
-                        layer.msg(resp.message,{icon:1});
-                        thisObj.parent().parent().parent().parent().remove();
-                    }else {
-                        layer.msg(resp.message,{icon:2});
-                    }
-                }
-            });
-        });
-
-
-        /**
-         * 缩略图
-         */
-        $(".thumbImg").click(function() {
-            //页面层-图片
-            layer.open({
-                type: 1,
-                title: false,
-                closeBtn: 1,
-                area: ['700px','400px'],
-                skin: 'layui-layer-nobg', //没有背景色
-                shadeClose: true,
-                content: $(this).next($('.bigPic'))     //查找下一个兄弟节点
-            });
-        });
     </script>
 @endsection

@@ -32,7 +32,7 @@ class BannerController extends BaseController {
     public function index(Request $request) {
         $title = $request->get('title','');
         $status = $request->get('status',-1);
-        list($data,$paginate) = $this->bannerModel->getListByAdmin($this->pageSize,$title,$status);
+        list($data,$paginate) = $this->bannerModel->getListByAdmin( $this->pageSize,$title,$status);
         return view('/admin/banner/index',compact('data','paginate'));
     }
 

@@ -18,7 +18,7 @@ class CategoryEditRequest extends BaseRequest
     public function rules()
     {
         return [
-            'id' => 'required|numeric',
+            'id' => 'required|numeric|notIn:0',
             'title' => 'required',
             'description' => 'required|max:150',
             'pid' => 'required|numeric',

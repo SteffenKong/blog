@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Tools\Loader;
 use App\Tools\MongoDB;
+use Carbon\Carbon;
 
 /**
  * Class LoginLog
@@ -26,18 +27,21 @@ class LoginLog {
      * @return array
      * @throws \MongoDB\Driver\Exception\Exception
      */
-    public function getList() {
+    public function getList($page,$pageSize) {
         $return = [];
-        $data = $this->mongoDB->query([],[],$this->collectionName);
+        $data = $this->mongoDB->query([],['skip'=>$page,'limit'=>$pageSize],$this->collectionName);
         foreach ($data ?? [] as $log) {
             $return[] = [
-                'id' => $log->id,
+                'id' => $log->_id,
                 'account' => $log->account,
+                'ip' => $log->ip,
                 'params' => $log->params,
-                'loginType' => $log->loginType
+                'createdAt' => $log->created_at ?? ''
             ];
         }
-        return $return;
+
+        $count = $this->mongoDB->count('loginLog');
+        return [$return,$count];
     }
 
 
@@ -52,7 +56,18 @@ class LoginLog {
         return $this->mongoDB->insert([
             'ip' => $ip,
             'params' => json_encode($params),
-            'account' => $account
+            'account' => $account,
+            'created_at' => Carbon::now()->toDateTimeString(),
         ],$this->collectionName);
+    }
+
+
+    /**
+     * @param $logId
+     * @return \MongoDB\Driver\WriteResult
+     * 删除日志
+     */
+    public function delData($logId) {
+        return $this->mongoDB->delete(['id'=>$logId],[],$this->collectionName);
     }
 }

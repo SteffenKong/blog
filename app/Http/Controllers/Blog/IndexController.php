@@ -23,7 +23,8 @@ class IndexController extends BaseController {
     public function index() {
         //获取前10篇比较热的文章
         list($articles,$paginate) = $this->articleModel->getArticleByHot(10);
-        return view('/blog/index/index',compact('articles','paginate'));
+        $articleRec = $this->articleModel->getOneRec();
+        return view('/blog/index/index',compact('articles','paginate','articleRec'));
     }
 
 
@@ -90,4 +91,5 @@ class IndexController extends BaseController {
         $tags = $this->tagsModel->getTagByLimit(5);
         return jsonPrint('000','获取成功',['tag' => $tags]);
     }
+
 }

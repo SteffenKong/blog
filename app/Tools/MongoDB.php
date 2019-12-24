@@ -1,6 +1,7 @@
 <?php
 namespace App\Tools;
 
+use MongoDB\Driver\Command;
 use MongoDB\Driver\Manager;
 use MongoDB\Driver\WriteConcern;
 use MongoDB\Driver\BulkWrite;
@@ -52,7 +53,6 @@ final class MongoDB {
      * 查询数据
      */
     public function query(array $filter = [],array $queryOption = [],$table) {
-        $this->bulk = new BulkWrite();
         $this->query = new Query($filter,$queryOption);
         return $this->mongodb->executeQuery($this->db.'.'.$table,$this->query);
     }
@@ -105,6 +105,24 @@ final class MongoDB {
         $this->bulk->delete($filter,$option);
         return $this->mongodb->executeBulkWrite($this->db.'.'.$table,$this->bulk,$this->writeConcern);
     }
+
+
+    /**
+     * @param $table
+     * @return int
+     * @throws \MongoDB\Driver\Exception\Exception
+     * 获取集合的数据总数
+     */
+    public function count($table) {
+        $command = new Command(['count' => $table]);
+        $data =$this->mongodb->executeCommand($this->db,$command);
+        $response= current($data->toArray());
+        if($response->ok == 1) {
+            return $response->n;
+        }
+        return 0;
+    }
+
 
 
     /**

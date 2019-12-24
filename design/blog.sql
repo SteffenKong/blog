@@ -163,3 +163,46 @@ create table if not exists blog_system_setting(
     updated_at datetime not null  comment '编辑时间',
     primary key(id)
 )charset=utf8,engine=innodb;
+
+
+-- 邮箱列表
+create table if not exists blog_email_log(
+    id mediumint unsigned not null auto_increment,
+    title varchar(191) not null comment '发送标题',
+    fromUser varchar(191) not null comment '发送者',
+    recvUser varchar(191) not null comment '接收者',
+    content varchar(191) not null comment '发送内容',
+    status tinyint not null comment '发送状态 0 - 发送失败 1 - 发送成功',
+    created_at datetime,
+    updated_at datetime,
+    primary key (id),
+    index idx_status(status)
+)charset=utf8,engine=innodb;
+
+
+-- 短信列表
+create table if not exists blog_sms_log(
+    id mediumint unsigned not null auto_increment,
+    title varchar(191) not null comment '发送标题',
+    fromUserPhone varchar(191) not null comment '发送者',
+    recvUserPhone varchar(191) not null comment '接收者',
+    content varchar(191) not null comment '发送内容',
+    status tinyint not null comment '发送状态 0 - 发送失败 1 - 发送成功',
+    created_at datetime,
+    updated_at datetime,
+    primary key (id),
+    index idx_status(status)
+)charset=utf8,engine=innodb;
+
+
+-- 公告表
+create table if not exists blog_message(
+    id mediumint unsigned not null auto_increment,
+    title varchar(191) not null comment '公告标题',
+    content varchar(191) not null comment '公告内容',
+    status varchar(191) not null comment '状态 0 - 禁用 1 - 启用',
+    created_at datetime,
+    updated_at datetime,
+    primary key (id),
+    index idx_status(status)
+)charset=utf8,engine=innodb;

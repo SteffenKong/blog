@@ -629,4 +629,30 @@ class Article extends Model
     public function getDetails() {
         return $this->hasOne(ArticleDetails::class,'article_id','id');
     }
+
+
+    /**
+     * @return array
+     * 获取今日推荐
+     */
+    public function getOneRec() {
+        $return = [];
+        $data = Article::where('status',1)
+            ->where('is_hot',1)
+            ->where('is_rec',1)
+            ->orderBy('view_number','desc')
+            ->orderBy('created_at','desc')->first(['id','title','description']);
+        if(!$data) {
+            $data = Article::where('status',1)->orderBy('created_at','desc')->first(['id','title','description']);
+        }
+
+        if($data) {
+            $return = [
+                'id' => $data->id,
+                'title' => $data['title'],
+                'description' => $data['description']
+            ];
+        }
+        return $return;
+    }
 }

@@ -1,8 +1,8 @@
 <?php
 return [
-    'host' => '192.168.150.133',
-    'userName' => '',
-    'password' => '',
-    'port' => 27017,
-    'db' => 'blog'
+    'host' => env('MONGODB_HOST','127.0.0.1'),
+    'userName' => env('MONDODB_USERNAME',''),
+    'password' => env('MONGODB_PASSWORD',''),
+    'port' => env('MONGODB_PORT',27017),
+    'db' => env('MONGODB_DBNAME',''),
 ];

@@ -28,7 +28,7 @@ class BaseController extends Controller
     protected $adminModel;
 
     public function __construct() {
-        $this->pageSize = \config('blog.pageSize');
+        $this->pageSize = \config('blog.admin.pageSize');
         $this->adminModel = Loader::singleton(Admin::class);
         $this->getSetting();
     }
